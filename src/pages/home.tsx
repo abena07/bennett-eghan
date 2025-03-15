@@ -6,7 +6,7 @@ function Home() {
       <p className="text-2xl font-medium">hi, i'm Abena 👋🏿</p>
 
       <p className="text-[22px] mt-4 leading-relaxed text-[#494949]">
-        i'm a swe from 🇬🇭 & i enjoy building software. <br />
+        i'm a swe from 🇬🇭 & i enjoy building software. 
         beyond coding, i'm particularly interested in anything sports-related. 
         this is my spot on the internet where i document my experiences, among other things.
       </p>
