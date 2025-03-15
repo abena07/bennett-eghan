@@ -1,21 +1,18 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {Layout} from "@/pages/layout";
+import Home from "@/pages/home";
+import Blog from "@/pages/blog";
 
-import './App.css'
-function App() {
 
+export default function App() {
   return (
-    <>
-     
-      
-     <div className="font-sans text-2xl font-bold">This text uses Source Sans 3 great!</div>
-
-
-   
-      
-
-
-
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/blog" element={<Blog />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
-
-export default App
