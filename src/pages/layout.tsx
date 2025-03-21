@@ -3,7 +3,7 @@ import { Navbar } from "@/custom/nav";
 
 export function Layout() {
   return (
-    <div className="min-h-screen flex flex-col px-8 md:px-[400px] w-full">
+    <div className="min-h-screen flex flex-col px-6  md:px-[200px] lg:px-[400px] w-full">
       {/* Navbar */}
       <Navbar />
 

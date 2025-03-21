@@ -2,19 +2,18 @@ import { Github, Linkedin, Mail, } from "lucide-react";
 
 function Home() {
   return (
-    <div className="">
+    <div className="w-full">
       <p className="text-2xl font-medium">hi, i'm Abena 👋🏿</p>
 
-      <p className="text-[22px] mt-4 leading-relaxed text-[#494949]">
+      <div className="text-[22px] mt-4 leading-relaxed text-[#494949]">
         i'm a swe from 🇬🇭 & i enjoy building software. 
         beyond coding, i'm particularly interested in anything sports-related. 
         this is my spot on the internet where i document my experiences, among other things.
-      </p>
+      </div>
 
       {/* "Get in touch" section */}
       <div className="flex flex-col gap-2 mt-16">
-        <div className="text-[20px] font-medium ">get in touch</div>
-        
+        <div className="text-[17px] font-medium ">get in touch</div>
 
         <div className="flex items-center gap-2.5 text-[18px] mt-1">
         <div className="hover:underline">
@@ -25,8 +24,8 @@ function Home() {
             rel="noopener noreferrer"
             className="flex items-center space-x-1 hover:underline !text-[#494949]"
           >
-            <Github />
-            <span className="mt-1">github</span>
+            <Github size={18} />
+            <span className="mt-1 text-[16px]">github</span>
           </a>
 
         </div>
@@ -39,8 +38,8 @@ function Home() {
             rel="noopener noreferrer"
             className="flex items-center space-x-1 !text-[#494949]"
           >
-            <Linkedin />
-            <span className="mt-2 ">linkedin</span>
+            <Linkedin size={18} />
+            <span className="mt-2 text-[16px] ">linkedin</span>
           </a>
           </div>
           <span>/</span>
@@ -50,8 +49,8 @@ function Home() {
             href="mailto:abenabennett@gmail.com"
             className="flex items-center space-x-1 hover:underline !text-[#494949]"
           >
-            <Mail />
-            <span className="mt-1">email</span>
+            <Mail  size={18}/>
+            <span className="mt-1 text-[16px]">email</span>
           </a>
           </div>
         </div>
