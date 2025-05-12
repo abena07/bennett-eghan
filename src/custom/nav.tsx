@@ -19,7 +19,7 @@ export function Navbar() {
               <Link
               key={path}
               to={path}
-              className="hover:underline flex align-middle relative py-1 px-2 text-[18px] cursor-pointer"
+              className="hover:underline hover:!text-black flex align-middle relative py-1 px-2 text-[18px] cursor-pointer"
             >
               {name}
             </Link>

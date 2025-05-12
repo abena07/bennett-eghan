@@ -5,7 +5,7 @@ export default function Blog() {
   return (
     <div>
       <p className="text-2xl font-medium">blog 📚</p>
-
+      
       {posts.length === 0 ? (
         <p className="text-[22px] mt-4 leading-relaxed">wow such empty 💀</p>
       ) : (
@@ -14,17 +14,17 @@ export default function Blog() {
             <li key={slug}>
               <Link
                 to={`/blog/${slug}`}
-                className="group block border-b border-gray-200 pb-1 transition duration-200 ease-in-out hover:text-black"
+                className="block border-b border-gray-200 pb-1 group"
               >
-                <div className="flex justify-between items-center">
-                  <span className="md:text-[20px] text-[18px] text-[#494949] group-hover:text-black">
+                <div className="flex justify-between items-center text-[#494949] transform transition-all duration-300 ease-in-out group-hover:-translate-x-1 group-hover:text-black">
+                  <span className="md:text-[20px] text-[18px] transform transition-all duration-300 ease-in-out">
                     {meta.title}
                   </span>
                   {meta.date && (
-                    <span className="md:text-[18px] text-[16px] ml-4 whitespace-nowrap">
+                    <span className="md:text-[18px] text-[16px] ml-4 whitespace-nowrap lowercase transition-all duration-300">
                       {new Date(meta.date).toLocaleDateString("en-US", {
                         year: "numeric",
-                        month: "long",
+                        month: "short",
                         day: "numeric",
                       })}
                     </span>
@@ -38,5 +38,3 @@ export default function Blog() {
     </div>
   );
 }
-
-
