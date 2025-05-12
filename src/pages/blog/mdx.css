@@ -1,0 +1,130 @@
+
+
+.blogContent {
+  position: relative;
+
+  /* Math equation handling */
+  & .katex-display {
+    padding: 1rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  /* Paragraph spacing */
+  & p {
+    margin: 1rem 0;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    /* Equivalent to text-sm in Tailwind */
+  }
+
+  /* Code block improvements */
+  & pre {
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+  }
+
+  & code {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Image container */
+  & .image-container {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+
+  & img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+
+  /* Table styles */
+  & table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+
+  & th,
+  & td {
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+  }
+
+  & th {
+    background: var(--muted);
+    font-weight: 600;
+  }
+
+  /* List styles */
+  & ul {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+    font-size: 0.875rem;
+    /* list-style-type: disc; */
+  }
+
+  & ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+    font-size: 0.875rem;
+  }
+
+  & li {
+    margin: 0.5rem 0;
+    padding-left: 0.5rem;
+    position: relative;
+    font-size: 0.875rem;
+  }
+
+  /* Custom bullet points for unordered lists */
+  & ul li::before {
+    content: "•";
+    color: var(--primary);
+    /* Use your primary color */
+    font-size: 1.2em;
+    position: absolute;
+    left: -1.25rem;
+    top: 0.1rem;
+  }
+
+  & h3,
+  & h4,
+  & h5,
+  &h6 {
+    color: #F8D39C;
+    /* Updated header color */
+  }
+
+  /* Custom number styling for ordered lists */
+  & ol li::before {
+    content: counter(list-item) ".";
+    color: var(--primary);
+    /* Use your primary color */
+    font-weight: 600;
+    position: absolute;
+    left: -1.5rem;
+    top: 0;
+  }
+
+  /* Hover effect for list items */
+  & li:hover {
+    background: var(--muted);
+    border-radius: 0.25rem;
+    transition: background 0.2s ease;
+  }
+
+  /* Blockquote styles */
+  & blockquote {
+    margin: 1rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--primary);
+    background: var(--muted);
+    border-radius: 0.5rem;
+  }
+}
