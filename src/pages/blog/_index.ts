@@ -1,15 +1,30 @@
 // src/pages/blog/_index.ts
 
-const modules = import.meta.glob('./*.mdx', { eager: true })
-
-const posts = Object.entries(modules).map(([path, mod]: any) => {
-  const slug = path.split('/').pop()?.replace(/\.mdx$/, '') // Extract slug from filename
-
-  return {
-    slug,
-    meta: mod.meta,  // Metadata of the blog post (title, date, etc.)
-    component: mod.default, // The content of the MDX file
+interface MdxModule {
+    meta: {
+      title: string;
+      date?: string;
+      // Add other possible meta fields here
+    };
+    default: React.ComponentType;
   }
-})
-
-export default posts
+  
+  interface BlogPost {
+    slug: string;
+    meta: MdxModule['meta'];
+    component: React.ComponentType;
+  }
+  
+  const modules = import.meta.glob<MdxModule>('./*.mdx', { eager: true });
+  
+  const posts: BlogPost[] = Object.entries(modules).map(([path, mod]) => {
+    const slug = path.split('/').pop()?.replace(/\.mdx$/, '') || '';
+  
+    return {
+      slug,
+      meta: mod.meta,
+      component: mod.default,
+    };
+  });
+  
+  export default posts;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 const navItems = {
   "/": { name: "home" },
   "/blog": { name: "blog" },
+  "/projects": { name: "projects" },
 };
 
 export function Navbar() {

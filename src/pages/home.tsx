@@ -8,7 +8,9 @@ function Home() {
       <div className="text-[22px] mt-4 leading-relaxed text-[#494949]">
         i'm a swe from 🇬🇭 & i enjoy building software. 
         i'm also interested in anything sports-related. 
-        here, i document my experiences and learnings, among other things.
+        here, i document my experiences and learnings and my occasional side quests.
+
+
       </div>
 
       {/* "Get in touch" section */}

@@ -17,11 +17,11 @@ export default function Blog() {
                 className="group block border-b border-gray-200 pb-1 transition duration-200 ease-in-out hover:text-black"
               >
                 <div className="flex justify-between items-center">
-                  <span className="text-[20px] text-[#494949] group-hover:text-black">
+                  <span className="md:text-[20px] text-[18px] text-[#494949] group-hover:text-black">
                     {meta.title}
                   </span>
                   {meta.date && (
-                    <span className="text-[18px] ml-4 whitespace-nowrap">
+                    <span className="md:text-[18px] text-[16px] ml-4 whitespace-nowrap">
                       {new Date(meta.date).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
