@@ -4,10 +4,10 @@ import posts from "./_index";
 export default function Blog() {
   return (
     <div>
-      <p className="text-2xl font-medium">blog 📚</p>
+      <p className="text-xl font-medium">blog 📚</p>
       
       {posts.length === 0 ? (
-        <p className="text-[22px] mt-4 leading-relaxed">wow such empty 💀</p>
+        <p className="text-[18px] mt-4 leading-relaxed">wow such empty 💀</p>
       ) : (
         <ul className="mt-6 space-y-4">
           {posts.map(({ slug, meta }) => (
@@ -17,11 +17,11 @@ export default function Blog() {
                 className="block border-b border-gray-200 pb-1 group"
               >
                 <div className="flex justify-between items-center text-[#494949] transform transition-all duration-300 ease-in-out group-hover:-translate-x-1 group-hover:text-black">
-                  <span className="md:text-[20px] text-[18px] transform transition-all duration-300 ease-in-out">
+                  <span className="md:text-[18px]  transform transition-all duration-300 ease-in-out">
                     {meta.title}
                   </span>
                   {meta.date && (
-                    <span className="md:text-[18px] text-[16px] ml-4 whitespace-nowrap lowercase transition-all duration-300">
+                    <span className="md:text-[18px]  ml-4 whitespace-nowrap lowercase transition-all duration-300">
                       {new Date(meta.date).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
