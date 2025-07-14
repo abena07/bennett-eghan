@@ -30,20 +30,21 @@ once it hits the base case (the point where the recursion stops), the computer s
 
 you don’t need to master the call stack right now. but knowing that the computer is stacking and unstacking function calls helps make sense of how recursive functions behave.
 
-> side note: this is explained super well in *a common-sense guide to data structures and algorithms (vol. 1)* by jay wengrow [\[1\]](#ref1). highly recommend.
+> side note: this is explained pretty well in the book ***a common-sense guide to data structures and algorithms (vol. 1)*** by jay wengrow [\[1\]](#ref1).
 
 ---
 
 a simple example we can look at to appreciate recursion is:
 
 **problem:** given a list of numbers **\[1, 2, 3, 4, 5, 6]**, return the sum.
-**output:** `21`
+
+**output:** 21
 
 → **base case:**
 
 this is where you find the smallest version of the problem that should cause the function to stop.
 without this, the call stack would just keep growing and eventually crash (infinite recursion).
-since our data type here is a list, the smallest version is when the list is empty or has just one item.
+since our data type here is a list, the smallest version is when the list is empty and when it has just one item.
 
 ```python
 if not lst:
@@ -58,7 +59,7 @@ if len(lst) == 1:
 
 → **recursive case:**
 
-thinking recursively doesn't come easy to most people (me included), so a good way to get into the mindset is:
+thinking recursively doesn't come easy to most people (me included), so a good "formuala" to adopt is:
 
 1. assume the function works
 2. divide the input into subproblems
