@@ -1,0 +1,100 @@
+export const meta = {
+  title: "recursion from my pov",
+  date: "july 14, 2025"
+}
+
+recursion is a computer science concept that allows you to solve a problem by dividing a big problem into subproblems.
+
+recursion works well with data structures that can contain smaller instances of themselves.
+some of these data structures are:
+
+1. strings
+2. lists
+3. linked lists
+4. trees
+5. graphs
+
+every recursive algorithm is broken into two parts:
+
+1. the base case
+2. the recursive case
+
+
+before we dive into an example, it helps to have a quick idea of how the [**call stack**](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack) works.
+
+when a function calls itself (like in recursion), that call gets placed on the call stack. think of it like a to-do list the computer uses to remember what it's still working on.
+
+as each recursive call happens, it stacks on top of the previous one. the computer pauses each call in the middle, saves what it was doing, and moves on to the next one.
+
+once it hits the base case (the point where the recursion stops), the computer starts unstacking. it finishes the most recent call first, then the one before that, and so on. this last-in, first-out (LIFO) behavior is what makes recursion work.
+
+you don’t need to master the call stack right now. but knowing that the computer is stacking and unstacking function calls helps make sense of how recursive functions behave.
+
+> side note: this is explained super well in *a common-sense guide to data structures and algorithms (vol. 1)* by jay wengrow. highly recommend.
+
+---
+
+a simple example we can look at to appreciate recursion is:
+
+**problem:** given a list of numbers **\[1, 2, 3, 4, 5, 6]**, return the sum.
+**output:** `21`
+
+→ **base case:**
+
+this is where you find the smallest version of the problem that should cause the function to stop.
+without this, the call stack would just keep growing and eventually crash (infinite recursion).
+since our data type here is a list, the smallest version is when the list is empty or has just one item.
+
+```python
+if not lst:
+    return 0
+```
+
+```python
+if len(lst) == 1:
+    return lst[0]
+```
+
+
+→ **recursive case:**
+
+thinking recursively doesn't come easy to most people (me included), so a good way to get into the mindset is:
+
+1. assume the function works
+2. divide the input into subproblems
+3. call the function on those subproblems
+4. combine the results
+
+```python
+# divide
+left = lst[0]
+right = lst[1:]
+
+# call
+left_val = find_sum(left)
+right_val = find_sum(right)
+
+# combine
+return left_val + right_val
+```
+
+but this can be written way cleaner:
+
+```python
+def find_sum(lst):
+    if not lst:
+        return 0
+    return lst[0] + find_sum(lst[1:])
+```
+
+---
+
+just like any new concept, recursion takes practice.
+doing a bunch of problems really helps you build that intuition.
+
+
+fun fact, i genuinely think recursion was created just to humble programmers once in a while 😂
+
+**source;** trust me bro
+
+
