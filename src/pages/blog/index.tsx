@@ -3,6 +3,13 @@ import { motion } from "framer-motion";
 import posts from "./_index";
 
 export default function Blog() {
+  // sort posts by date (newest first)
+  const sortedPosts = [...posts].sort((a, b) => {
+    const dateA = a.meta.date ? new Date(a.meta.date).getTime() : 0;
+    const dateB = b.meta.date ? new Date(b.meta.date).getTime() : 0;
+    return dateB - dateA;
+  });
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -12,13 +19,13 @@ export default function Blog() {
     >
       <p className="text-xl font-medium">blog 📚</p>
 
-      {posts.length === 0 ? (
+      {sortedPosts.length === 0 ? (
         <p className="text-[18px] mt-4 leading-relaxed text-[#494949]">
           wow such empty 💀
         </p>
       ) : (
         <ul className="mt-6 space-y-4">
-          {posts.map(({ slug, meta }) => (
+          {sortedPosts.map(({ slug, meta }) => (
             <li key={slug}>
               <Link
                 to={`/blog/${slug}`}
