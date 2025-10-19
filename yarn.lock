@@ -564,6 +564,11 @@
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.2"
 
+"@remix-run/router@1.23.0":
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.23.0.tgz#35390d0e7779626c026b11376da6789eb8389242"
+  integrity sha512-O3rHJzAQKamUz1fvE0Qaw0xSFqsA/yafi2iqeE0pvdFtCO1viYx8QL6f3Ln/aCCTLxs68SLf0KPM9eSeM8yBnA==
+
 "@rollup/pluginutils@^5.0.0":
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-5.1.4.tgz#bb94f1f9eaaac944da237767cdfee6c5b2262d4a"
@@ -1266,11 +1271,6 @@ cookie@^0.7.1:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.7.2.tgz#556369c472a2ba910f2979891b526b3436237ed7"
   integrity sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==
 
-cookie@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/cookie/-/cookie-1.0.2.tgz#27360701532116bd3f1f9416929d176afe1e4610"
-  integrity sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==
-
 cors@^2.8.5:
   version "2.8.5"
   resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.5.tgz#eac11da51592dd86b9f06f6e7ac293b3df875d29"
@@ -1786,6 +1786,15 @@ fraction.js@^4.3.7:
   version "4.3.7"
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.3.7.tgz#06ca0085157e42fda7f9e726e79fefc4068840f7"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
+
+framer-motion@^12.23.24:
+  version "12.23.24"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.23.24.tgz#4895b67e880bd2b1089e61fbaa32ae802fc24b8c"
+  integrity sha512-HMi5HRoRCTou+3fb3h9oTLyJGBxHfW+HnNE25tAXOvVx/IvwMHK0cx7IR4a2ZU6sh3IX1Z+4ts32PcYBOqka8w==
+  dependencies:
+    motion-dom "^12.23.23"
+    motion-utils "^12.23.6"
+    tslib "^2.4.0"
 
 fresh@^2.0.0:
   version "2.0.0"
@@ -2884,6 +2893,26 @@ mkdirp@^3.0.1:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-3.0.1.tgz#e44e4c5607fb279c168241713cc6e0fea9adcb50"
   integrity sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==
 
+motion-dom@^12.23.23:
+  version "12.23.23"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.23.23.tgz#8f874333ea1a04ee3a89eb928f518b463d589e0e"
+  integrity sha512-n5yolOs0TQQBRUFImrRfs/+6X4p3Q4n1dUEqt/H58Vx7OW6RF+foWEgmTVDhIWJIMXOuNNL0apKH2S16en9eiA==
+  dependencies:
+    motion-utils "^12.23.6"
+
+motion-utils@^12.23.6:
+  version "12.23.6"
+  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.23.6.tgz#fafef80b4ea85122dd0d6c599a0c63d72881f312"
+  integrity sha512-eAWoPgr4eFEOFfg2WjIsMoqJTW6Z8MTUCgn/GZ3VRpClWBdnbjryiA3ZSNLyxCTmCQx4RmYX6jX1iWHbenUPNQ==
+
+motion@^12.23.24:
+  version "12.23.24"
+  resolved "https://registry.yarnpkg.com/motion/-/motion-12.23.24.tgz#39d8f79507b1b89dbcb3c14741749a459ea88be6"
+  integrity sha512-Rc5E7oe2YZ72N//S3QXGzbnXgqNrTESv8KKxABR20q2FLch9gHLo0JLyYo2hZ238bZ9Gx6cWhj9VO0IgwbMjCw==
+  dependencies:
+    framer-motion "^12.23.24"
+    tslib "^2.4.0"
+
 ms@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
@@ -3119,20 +3148,20 @@ react-refresh@^0.17.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.17.0.tgz#b7e579c3657f23d04eccbe4ad2e58a8ed51e7e53"
   integrity sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==
 
-react-router-dom@^7.3.0:
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-7.6.0.tgz#eadcede43856dc714fa3572a946fd7502775c017"
-  integrity sha512-DYgm6RDEuKdopSyGOWZGtDfSm7Aofb8CCzgkliTjtu/eDuB0gcsv6qdFhhi8HdtmA+KHkt5MfZ5K2PdzjugYsA==
+react-router-dom@^6.23.1:
+  version "6.30.1"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.30.1.tgz#da2580c272ddb61325e435478566be9563a4a237"
+  integrity sha512-llKsgOkZdbPU1Eg3zK8lCn+sjD9wMRZZPuzmdWWX5SUs8OFkN5HnFVC0u5KMeMaC9aoancFI/KoLuKPqN+hxHw==
   dependencies:
-    react-router "7.6.0"
+    "@remix-run/router" "1.23.0"
+    react-router "6.30.1"
 
-react-router@7.6.0:
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-7.6.0.tgz#e2d0872d7bea8df79465a8bba9a20c87c32ce995"
-  integrity sha512-GGufuHIVCJDbnIAXP3P9Sxzq3UUsddG3rrI3ut1q6m0FI6vxVBF3JoPQ38+W/blslLH4a5Yutp8drkEpXoddGQ==
+react-router@6.30.1:
+  version "6.30.1"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.30.1.tgz#ecb3b883c9ba6dbf5d319ddbc996747f4ab9f4c3"
+  integrity sha512-X1m21aEmxGXqENEPG3T6u0Th7g0aS4ZmoNynhbs+Cn+q+QGTLt+d5IQ2bHAXKzKcxGJjxACpVbnYQSCRcfxHlQ==
   dependencies:
-    cookie "^1.0.1"
-    set-cookie-parser "^2.6.0"
+    "@remix-run/router" "1.23.0"
 
 react@^18.3.1:
   version "18.3.1"
@@ -3372,11 +3401,6 @@ serve-static@^2.2.0:
     escape-html "^1.0.3"
     parseurl "^1.3.3"
     send "^1.2.0"
-
-set-cookie-parser@^2.6.0:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/set-cookie-parser/-/set-cookie-parser-2.7.1.tgz#3016f150072202dfbe90fadee053573cc89d2943"
-  integrity sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==
 
 setprototypeof@1.2.0:
   version "1.2.0"
