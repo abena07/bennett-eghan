@@ -3,19 +3,16 @@ import { Navbar } from "@/custom/nav";
 
 export function Layout() {
   return (
-    <div className="min-h-screen flex flex-col px-6  md:px-[200px] lg:px-[400px] w-full">
-      {/* Navbar */}
-      <Navbar />
+    <div className="min-h-screen flex flex-col items-center px-6 w-full">
+      {/* Navbar - constrained width */}
+      <div className="w-full max-w-3xl">
+        <Navbar />
+      </div>
 
-      {/* Main content */}
-      <main className=" w-full">
+      {/* Main content - constrained width */}
+      <main className="w-full max-w-3xl">
         <Outlet /> 
       </main>
-
-      {/* Footer */}
-      {/* <footer className="text-center p-4 text-gray-500">
-        © {new Date().getFullYear()} My Website
-      </footer> */}
     </div>
   );
 }
