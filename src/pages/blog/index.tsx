@@ -1,13 +1,21 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import posts from "./_index";
 
 export default function Blog() {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="w-full"
+    >
       <p className="text-xl font-medium">blog 📚</p>
-      
+
       {posts.length === 0 ? (
-        <p className="text-[18px] mt-4 leading-relaxed">wow such empty 💀</p>
+        <p className="text-[18px] mt-4 leading-relaxed text-[#494949]">
+          wow such empty 💀
+        </p>
       ) : (
         <ul className="mt-6 space-y-4">
           {posts.map(({ slug, meta }) => (
@@ -17,11 +25,11 @@ export default function Blog() {
                 className="block border-b border-gray-200 pb-1 group"
               >
                 <div className="flex justify-between items-center text-[#494949] transform transition-all duration-300 ease-in-out group-hover:-translate-x-1 group-hover:text-black">
-                  <span className="md:text-[18px]  transform transition-all duration-300 ease-in-out">
+                  <span className="md:text-[18px] transform transition-all duration-300 ease-in-out">
                     {meta.title}
                   </span>
                   {meta.date && (
-                    <span className="md:text-[18px]  ml-4 whitespace-nowrap lowercase transition-all duration-300">
+                    <span className="md:text-[18px] ml-4 whitespace-nowrap lowercase transition-all duration-300">
                       {new Date(meta.date).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
@@ -35,6 +43,6 @@ export default function Blog() {
           ))}
         </ul>
       )}
-    </div>
+    </motion.div>
   );
 }

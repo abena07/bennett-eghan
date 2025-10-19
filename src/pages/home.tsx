@@ -1,8 +1,17 @@
+import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 
 function Home() {
   return (
-    <div className="w-full">
+    <motion.div
+      className="w-full"
+      initial={{ opacity: 0, y: 50 }}   // start off below and transparent
+      animate={{ opacity: 1, y: 0 }}    // slide up and fade in
+      transition={{
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1],     // smooth easing curve
+      }}
+    >
       <p className="text-xl font-medium">hi, i'm Abena 👋🏿</p>
 
       <div className="text-[18px] mt-4 leading-relaxed text-[#494949]">
@@ -12,7 +21,7 @@ function Home() {
       </div>
 
       <div className="text-[18px] mt-4 leading-relaxed text-[#494949]">
-        side : i'm a fellow @{" "}
+        outside of work, i'm a fellow @{" "}
         <a 
           href="https://hxilabs.com/" 
           target="_blank" 
@@ -62,7 +71,7 @@ function Home() {
           </a>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
