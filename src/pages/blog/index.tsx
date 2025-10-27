@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import posts from "./_index";
 
 export default function Blog() {
@@ -17,6 +18,22 @@ export default function Blog() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="w-full"
     >
+      {/* ✅ SEO meta tags */}
+      <Helmet>
+        <title>Abena | blog</title>
+        <meta
+          name="description"
+          content="read Abena's latest blog posts."
+        />
+        <meta property="og:title" content="Phillipa’s Blog" />
+        <meta
+          property="og:description"
+          content="insights, from Abena's experience as a swe."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.bennett-eghan.com/blog" />
+      </Helmet>
+
       <p className="text-xl font-medium">blog 📚</p>
 
       {sortedPosts.length === 0 ? (
