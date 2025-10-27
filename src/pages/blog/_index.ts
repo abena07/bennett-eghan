@@ -1,10 +1,9 @@
-// src/pages/blog/_index.ts
-
 interface MdxModule {
     meta: {
       title: string;
       date?: string;
-      // Add other possible meta fields here
+      description?: string;
+      image?: string
     };
     default: React.ComponentType;
   }
