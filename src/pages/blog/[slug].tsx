@@ -17,7 +17,7 @@ export default function BlogPost() {
     <article className="prose prose-p:text-[18px] prose-li:text-[18px] max-w-3xl pb-32">
       {/* ✅ SEO Meta Tags */}
       <Helmet>
-        <title>{`${title} | Abena’s Blog`}</title>
+        <title>{`${title} `}</title>
         <meta
           name="description"
           content={description || "Read this blog post by Abenan."}

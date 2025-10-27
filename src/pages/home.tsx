@@ -6,7 +6,7 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Abena — swe</title>
+        <title>Abena | swe</title>
         <meta
           name="description"
           content="hi, i'm Abena, a software engineer from Ghana who enjoys building software. here, i share my experiences, learnings, and side projects."

@@ -39,7 +39,7 @@ function Projects() {
   return (
     <>
       <Helmet>
-        <title>projects — Abena</title>
+        <title>Abena | projects</title>
         <meta
           name="description"
           content="a showcase of my projects."
