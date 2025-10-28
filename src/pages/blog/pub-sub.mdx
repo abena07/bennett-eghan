@@ -1,0 +1,31 @@
+export const meta = {
+  title: "what are pub/subs?",
+  date :"oct 28, 2025"
+}
+
+
+this is a simple piece that briefly encompasses what pub subs are how they work & when you should use them.
+
+### what are pub/subs?
+
+pub/sub stands for **publisher/subscriber**. it is a communication pattern used to stream data in real-time systems, perfect for when you need data delivered instantly, like live comments or price updates.
+
+### how do pub/subs work?
+
+a pub/sub setup has three main parts:
+
+* **publisher:** sends or publishes events
+* **subscriber:** listens for or subscribes to events
+* **topic:** the channel in between, managed by a message broker (like kafka, rabbitmq, or google pub/sub) that delivers messages from publishers to subscribers
+
+publishers and subscribers are **decoupled**. they don’t know each other directly. the publisher just sends messages to a topic, and any subscriber to that topic automatically receives them.
+
+when scaling, topics can be **split into partitions**, and each partition can be handled by a **consumer group**, allowing multiple subscribers to process data in parallel.
+
+### when should you use pub/sub?
+
+pub/sub systems shine when you need **real-time updates** or **event-driven communication**, like:
+
+* a comment or chat section for a live stream such as tiktok or youtube
+* a crypto or stock price tracker updating live
+* sending notifications or syncing data across distributed systems
