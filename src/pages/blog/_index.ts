@@ -4,6 +4,7 @@ interface MdxModule {
       date?: string;
       description?: string;
       image?: string
+      tags? : []
     };
     default: React.ComponentType;
   }
