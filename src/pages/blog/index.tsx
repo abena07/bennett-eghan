@@ -34,7 +34,7 @@ export default function Blog() {
         <meta property="og:url" content="https://www.bennett-eghan.com/blog" />
       </Helmet>
 
-      <p className="text-xl font-medium">blog 📚</p>
+      <p className="text-xl font-medium">blog</p>
 
       {sortedPosts.length === 0 ? (
         <p className="text-[18px] mt-4 leading-relaxed text-[#494949]">
@@ -42,30 +42,46 @@ export default function Blog() {
         </p>
       ) : (
         <ul className="mt-6 space-y-4">
-          {sortedPosts.map(({ slug, meta }) => (
-            <li key={slug}>
-              <Link
-                to={`/blog/${slug}`}
-                className="block border-b border-gray-200 pb-1 group"
-              >
-                <div className="flex justify-between items-center text-[#494949] transform transition-all duration-300 ease-in-out group-hover:-translate-x-1 group-hover:text-black">
-                  <span className="md:text-[18px] transform transition-all duration-300 ease-in-out">
-                    {meta.title}
+  {sortedPosts.map(({ slug, meta }) => (
+    <li key={slug}>
+      <Link
+        to={`/blog/${slug}`}
+        className="block border-b border-gray-200 pb-1 group"
+      >
+        <div className="flex justify-between items-center text-[#494949] transform transition-all duration-300 ease-in-out group-hover:-translate-x-1 group-hover:text-black">
+          <div className="flex items-center gap-2 md:text-[18px]">
+            <span>{meta.title}</span>
+
+            {/* Tags */}
+            {meta.tags && meta.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {meta.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-cyan-500 text-sm font-medium px-2 py-0.5 rounded-md bg-cyan-50"
+                  >
+                    {tag}
                   </span>
-                  {meta.date && (
-                    <span className="md:text-[18px] ml-4 whitespace-nowrap lowercase transition-all duration-300">
-                      {new Date(meta.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {meta.date && (
+            <span className="md:text-[18px] ml-4 whitespace-nowrap lowercase transition-all duration-300">
+              {new Date(meta.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </span>
+          )}
+        </div>
+      </Link>
+    </li>
+  ))}
+</ul>
+
       )}
     </motion.div>
   );
