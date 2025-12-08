@@ -188,3 +188,10 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+#nav a,
+#nav a:visited,
+#nav a:hover,
+#nav a:active {
+  color: inherit !important;
+}
