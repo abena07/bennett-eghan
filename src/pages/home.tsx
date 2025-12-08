@@ -15,7 +15,7 @@ const bannerConfig = {
     boldTextColor: "text-cyan-700",
   },
   sports: {
-    text: "playing chess and tennis",
+    text: "skating, cycling & playing ping-pong",
     bgColor: "bg-green-500/10",
     borderColor: "border-green-500/30",
     dotColor: "bg-green-500",
@@ -23,7 +23,7 @@ const bannerConfig = {
     boldTextColor: "text-green-700",
   },
   hxi: {
-    text: "researching into ai in human interactions",
+    text: "contributing to products that amplify human interactions",
     bgColor: "bg-yellow-500/10",
     borderColor: "border-yellow-500/30",
     dotColor: "bg-yellow-500",
