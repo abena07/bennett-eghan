@@ -7,25 +7,34 @@ export default function BlogPost() {
   const { slug } = useParams();
   const post = posts.find((p) => p.slug === slug);
 
-  useEffect(() => {
-    if (!post) return; 
+useEffect(() => {
+  if (!post) return;
 
-    const commentBox = document.getElementById("giscus-comments");
-    if (commentBox) commentBox.innerHTML = "";
+  const commentBox = document.getElementById("giscus-comments");
+  if (commentBox) commentBox.innerHTML = "";
 
-    const script = document.createElement("script");
-    script.src = "https://giscus.app/client.js";
-    script.async = true;
-    script.setAttribute("data-repo", "abena07/bennett-eghan");
-    script.setAttribute("data-repo-id", "R_kgDON4R-JA");
-    script.setAttribute("data-category", "comments");
-    script.setAttribute("data-category-id", "DIC_kwDO..."); // replace with your category ID
-    script.setAttribute("data-mapping", "pathname");
-    script.setAttribute("data-theme", "light");
-    script.setAttribute("crossorigin", "anonymous");
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.async = true;
 
-    if (commentBox) commentBox.appendChild(script);
-  }, [slug, post]); 
+  script.setAttribute("data-repo", "abena07/bennett-eghan");
+  script.setAttribute("data-repo-id", "R_kgDON4R-JA");
+
+  script.setAttribute("data-category", "comments"); 
+  script.setAttribute("data-category-id", "DIC_kwDON4R-JM4Czgvp");
+
+  script.setAttribute("data-mapping", "pathname");
+  script.setAttribute("data-strict", "0");
+  script.setAttribute("data-reactions-enabled", "1");
+  script.setAttribute("data-emit-metadata", "0");
+  script.setAttribute("data-input-position", "bottom");
+  script.setAttribute("data-theme", "preferred_color_scheme");
+  script.setAttribute("data-lang", "en");
+  script.setAttribute("crossorigin", "anonymous");
+
+  commentBox?.appendChild(script);
+}, [slug, post]);
+
   
   if (!post) return <p>post not found 😢</p>;
 
