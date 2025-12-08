@@ -1,8 +1,41 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { useState } from "react";
+
+type BannerTheme = "swe" | "sports" | "hxi";
+
+const bannerConfig = {
+  swe: {
+    text: "breaking, building & engineering things",
+    bgColor: "bg-cyan-500/10",
+    borderColor: "border-cyan-500/30",
+    dotColor: "bg-cyan-500",
+    textColor: "text-cyan-600",
+    boldTextColor: "text-cyan-700",
+  },
+  sports: {
+    text: "skating, cycling & playing ping-pong",
+    bgColor: "bg-green-500/10",
+    borderColor: "border-green-500/30",
+    dotColor: "bg-green-500",
+    textColor: "text-green-600",
+    boldTextColor: "text-green-700",
+  },
+  hxi: {
+    text: "contributing to products that amplify human interactions",
+    bgColor: "bg-yellow-500/10",
+    borderColor: "border-yellow-500/30",
+    dotColor: "bg-yellow-500",
+    textColor: "text-yellow-600",
+    boldTextColor: "text-yellow-700",
+  },
+};
 
 function Home() {
+  const [activeTheme, setActiveTheme] = useState<BannerTheme>("swe");
+  const banner = bannerConfig[activeTheme];
+
   return (
     <>
       <Helmet>
@@ -50,12 +83,12 @@ function Home() {
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <div className="flex justify-start mb-5">
-          <div className="inline-flex items-center gap-3 px-1.5 py-0.5  bg-cyan-500/10 border border-cyan-500/30 rounded-full">
-            <div className="w-2.5 h-2.5 bg-cyan-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-cyan-600">
+          <div className={`inline-flex items-center gap-3 px-1.5 py-0.5 ${banner.bgColor} border ${banner.borderColor} rounded-full transition-colors duration-300`}>
+            <div className={`w-2.5 h-2.5 ${banner.dotColor} rounded-full animate-pulse`} />
+            <span className={`text-sm font-medium ${banner.textColor} transition-colors duration-300`}>
               i'm currently{" "}
-              <span className="font-semibold text-cyan-700">
-                breaking, building & engineering things
+              <span className={`font-semibold ${banner.boldTextColor} transition-colors duration-300`}>
+                {banner.text}
               </span>
             </span>
           </div>
@@ -63,22 +96,26 @@ function Home() {
         <p className="text-xl font-medium">hi, i'm Abena 👋🏿</p>
 
         <div className="text-[18px] mt-4 leading-relaxed text-[#494949]">
-          i'm a <span className="text-cyan-500 hover-underline cursor-pointer">swe</span> from ghana 🇬🇭 & i enjoy building software. 
-          i'm also interested in anything <span className="text-cyan-500 hover-underline cursor-pointer">sports-related</span>. 
+          i'm a <span
+            className="text-cyan-500 hover-underline cursor-pointer"
+            onClick={() => setActiveTheme("swe")}
+          >swe</span> from ghana 🇬🇭 & i enjoy building software.
+          i'm also interested in anything <span
+            className="text-green-500 hover-underline cursor-pointer"
+            onClick={() => setActiveTheme("sports")}
+          >sports-related</span>.
           here, i document my experiences, learnings and my occasional side quests.
         </div>
 
         <div className="text-[18px] mt-4 leading-relaxed text-[#494949]">
           outside of work, i'm a fellow @{" "}
-          <a 
-            href="https://hxilabs.com/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-cyan-500 hover-underline"
+          <span
+            className="text-yellow-500 hover-underline cursor-pointer"
+            onClick={() => setActiveTheme("hxi")}
           >
             hxi labs
-          </a>
-          {" "}where we design technology that amplifies human connection. 
+          </span>
+          {" "}where we design technology that amplifies human connection.
         </div>
 
         <div className="flex flex-col gap-2 mt-16">

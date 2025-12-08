@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
+import { title } from "process";
 import { Helmet } from "react-helmet-async";
 
 function Projects() {
@@ -38,6 +39,14 @@ function Projects() {
       demo: "https://app.codeloop.pro/",
       type: "open source",
     },
+    {
+      title: "chill seek",
+      description: "find places to hangout with a single prompt",
+      tech: ["react", ".Net"],
+      demo: "https://chillseek.app",
+      type: " personal",
+
+    }
   ];
 
   return (
@@ -91,31 +100,34 @@ function Projects() {
                   {/* Title with colored pill background and dot */}
                   <div className="flex items-center gap-2 mb-3">
                     <p
-                      className={`text-[16px] font-semibold inline-flex items-center gap-3 px-2 py-0.5 rounded-full uppercase ${
-                        project.type.includes("open source")
+                      className={`text-[16px] font-semibold inline-flex items-center gap-3 px-2 py-0.5 rounded-full uppercase ${project.type.includes("open source")
                           ? "bg-yellow-50 text-yellow-700 border border-yellow-200"
-                          : "bg-purple-50 text-purple-700 border border-purple-200"
-                      }`}
+                          : project.type.includes("personal")
+                            ? "bg-pink-50 text-pink-700 border border-pink-200"
+                            : "bg-purple-50 text-purple-700 border border-purple-200"
+
+                        }`}
                     >
                       {project.title}
                     </p>
 
                     {/* Colored dot */}
                     <span
-                      className={`w-2 h-2 rounded-full ${
-                        project.type.includes("open source")
+                      className={`w-2 h-2 rounded-full ${project.type.includes("open source")
                           ? "bg-yellow-500"
                           : "bg-purple-500"
-                      }`}
+                        }`}
                     ></span>
 
                     {/* Type tag */}
                     <span
-                      className={`text-[16px] font-medium uppercase ${
-                        project.type.includes("open source")
+                      className={`text-[16px] font-medium uppercase ${project.type.includes("open source")
                           ? "text-yellow-600"
-                          : "text-purple-600"
-                      }`}
+                          : project.type.includes("personal")
+                            ? "text-pink-600"
+                            : "text-purple-600"
+
+                        }`}
                     >
                       {project.type}
                     </span>
