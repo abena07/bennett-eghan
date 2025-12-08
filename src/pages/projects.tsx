@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
-import { title } from "process";
 import { Helmet } from "react-helmet-async";
 
 function Projects() {
