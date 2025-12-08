@@ -114,6 +114,8 @@ function Projects() {
                     <span
                       className={`w-2 h-2 rounded-full ${project.type.includes("open source")
                           ? "bg-yellow-500"
+                          : project.type.includes("personal")
+                            ? "bg-pink-500"
                           : "bg-purple-500"
                         }`}
                     ></span>
