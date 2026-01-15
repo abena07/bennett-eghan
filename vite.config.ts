@@ -18,11 +18,11 @@ export default defineConfig({
     mdx(),
     tailwindcss(),
 
-    // Sitemap + robots.txt generation
+    // Sitemap generation
     ViteSitemap({
-      hostname: "https://www.bennett-eghan.com", // replace with your real domain
+      hostname: "https://www.bennett-eghan.com",
       dynamicRoutes,
-      generateRobotsTxt: true,
+      generateRobotsTxt: false,
     }),
 
     // Default SEO meta injection
