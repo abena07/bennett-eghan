@@ -39,7 +39,7 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Abena | swe</title>
+        <title>abena | swe</title>
         <meta
           name="description"
           content="hi, i'm Abena, a software engineer from Ghana who enjoys building software. here, i share my experiences, learnings, and side projects."
@@ -154,7 +154,7 @@ function Home() {
 
             {/* Email */}
             <a
-              href="mailto:abenabennett@gmail.com"
+              href="mailto:abenabennett@proton.me"
               className="text-[#494949] hover-underline inline-flex"
             >
               <div className="flex items-center gap-1.5">
