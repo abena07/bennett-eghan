@@ -18,11 +18,11 @@ export default defineConfig({
     mdx(),
     tailwindcss(),
 
-    // Sitemap + robots.txt generation
+    // Sitemap generation
     ViteSitemap({
-      hostname: "https://www.bennett-eghan.com", // replace with your real domain
+      hostname: "https://www.bennett-eghan.com",
       dynamicRoutes,
-      generateRobotsTxt: true,
+      generateRobotsTxt: false,
     }),
 
     // Default SEO meta injection
@@ -40,18 +40,18 @@ export default defineConfig({
     // Open Graph meta tags
     ogPlugin({
       basic: {
-        title: "abena | swe",
+        title: "abena bennett-eghan | software engineer",
         type: "website",
         url: "https://www.bennett-eghan.com",
-        description: "explore abena's projects, blog, and insights.",
+        description: "explore my projects, blog posts on algorithms, problem-solving, and navigating the tech space. thoughts on dsa, open source, and engineering things.",
         siteName: "bennett-eghan.com",
         image: "https://www.bennett-eghan.com/og-main.png",
       },
       twitter: {
         card: "summary_large_image",
-        site: "@abena07",
-        title: "abena | swe",
-        description: "explore abena's projects, blog, and insights.",
+        site: "@1bp7l_",
+        title: "abena bennett-eghan | software engineer",
+        description: "explore my projects, blog posts on algorithms, problem-solving, and navigating the tech space. thoughts on dsa, open source, and engineering things.",
         image: "https://www.bennett-eghan.com/og-main.png",
       },
     }),
