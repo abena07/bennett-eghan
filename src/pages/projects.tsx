@@ -51,16 +51,16 @@ function Projects() {
   return (
     <>
       <Helmet>
-        <title>Abena | projects</title>
-        <meta name="description" content="a showcase of my projects." />
-        <meta property="og:title" content="projects — Abena" />
+        <title>abena | projects</title>
+        <meta name="description" content="things i have built" />
+        <meta property="og:title" content="projects — abena" />
         <meta
           property="og:description"
-          content="building intelligent, human-centered, and open tools."
+          content="things i have built"
         />
         <meta
           property="og:image"
-          content="https://www.bennett-eghan.com/og.png"
+          content="https://www.bennett-eghan.com/og-projects.png"
         />
         <meta
           property="og:url"
