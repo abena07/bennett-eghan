@@ -3940,6 +3940,11 @@ vite-plugin-html@^3.2.2:
     node-html-parser "^5.3.3"
     pathe "^0.2.0"
 
+vite-plugin-open-graph@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/vite-plugin-open-graph/-/vite-plugin-open-graph-2.0.6.tgz#1183f19b433d7658eea353c85c0322602953e50c"
+  integrity sha512-puGPr/V4C0HN3fxtvglulxmkPZiQp6yoASZqyH54LrK/DKiOgjC0V3glWcE6BFto3X3NK50aasE6tWruzAnEMA==
+
 vite-plugin-pages@^0.33.1:
   version "0.33.2"
   resolved "https://registry.yarnpkg.com/vite-plugin-pages/-/vite-plugin-pages-0.33.2.tgz#78b80a3d42bbbf567f7c5e78cbb16da4a2d57490"
