@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { Github, Linkedin, MessageDefault } from "pikaicons";
+import { Github, Linkedin, MessageDefault, LinkSlant } from "pikaicons";
 import { useState } from "react";
 
 type BannerTheme = "swe" | "sports" | "hxi";
@@ -82,7 +82,7 @@ function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <div className="flex justify-start mb-5">
+        <div className="flex justify-start mb-5 hidden md:flex">
           <div className={`inline-flex items-center gap-3 px-1.5 py-0.5 ${banner.bgColor} border ${banner.borderColor} rounded-full transition-colors duration-300`}>
             <div className={`w-2.5 h-2.5 ${banner.dotColor} rounded-full animate-pulse`} />
             <span className={`text-sm font-medium ${banner.textColor} transition-colors duration-300`}>
@@ -126,60 +126,57 @@ function Home() {
         <div className="flex flex-col gap-2 mt-16">
           <div className="text-[16px] font-medium text-black">stalk me</div>
 
-          <div className="flex items-center gap-2.5 mt-1 text-[16px] text-black">
+          <div className="flex items-center gap-2.5 mt-1 text-[16px] text-black flex-wrap">
             {/* GitHub */}
             <a
               href="https://github.com/abena07"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black hover-underline inline-flex"
+              className="text-black hover-underline inline-flex items-center"
+              aria-label="github"
             >
-              <div className="flex items-center gap-1.5">
-                <Github width={20} height={20} className="pika-icon shrink-0 inline-block" />
-                <span>github</span>
-              </div>
+              <Github width={20} height={20} className="pika-icon shrink-0 inline-block" />
+              <span className="hidden sm:inline ml-1.5">github</span>
             </a>
 
-            <span className="text-black">/</span>
+            <span className="text-black hidden sm:inline">/</span>
 
             {/* LinkedIn */}
             <a
               href="https://www.linkedin.com/in/phillipa-bennett-eghan/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black hover-underline inline-flex"
+              className="text-black hover-underline inline-flex items-center"
+              aria-label="linkedin"
             >
-              <div className="flex items-center gap-1.5">
-                <Linkedin width={20} height={20} className="pika-icon shrink-0 inline-block" />
-                <span>linkedin</span>
-              </div>
+              <Linkedin width={20} height={20} className="pika-icon shrink-0 inline-block" />
+              <span className="hidden sm:inline ml-1.5">linkedin</span>
             </a>
 
-            <span className="text-black">/</span>
+            <span className="text-black hidden sm:inline">/</span>
 
             {/* Email */}
             <a
               href="mailto:abenabennett@proton.me"
-              className="text-black hover-underline inline-flex"
+              className="text-black hover-underline inline-flex items-center"
+              aria-label="email"
             >
-              <div className="flex items-center gap-1.5">
-                <MessageDefault width={20} height={20} className="pika-icon shrink-0 inline-block" />
-                <span>email</span>
-              </div>
+              <MessageDefault width={20} height={20} className="pika-icon shrink-0 inline-block" />
+              <span className="hidden sm:inline ml-1.5">email</span>
             </a>
 
-            <span className="text-black">/</span>
+            <span className="text-black hidden sm:inline">/</span>
 
             {/* Bluesky */}
             <a
               href="https://bsky.app/profile/1bp7l.bsky.social"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black hover-underline inline-flex"
+              className="text-black hover-underline inline-flex items-center"
+              aria-label="bluesky"
             >
-              <div className="flex items-center gap-1.5">
-                <span>bluesky</span>
-              </div>
+              <LinkSlant width={20} height={20} className="pika-icon shrink-0 inline-block" />
+              <span className="hidden sm:inline ml-1.5">bluesky</span>
             </a>
           </div>
         </div>
