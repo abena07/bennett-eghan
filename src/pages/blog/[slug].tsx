@@ -42,6 +42,7 @@ useEffect(() => {
   const { title, description, date, image, readingTime } = post.meta;
 
   const baseUrl = "https://www.bennett-eghan.com";
+  const ogImage = image ? `${baseUrl}${image}` : `${baseUrl}/og-main.png?v=2`;
 
   return (
     <article className="prose prose-p:text-[18px] prose-li:text-[18px] max-w-3xl pb-32">
@@ -58,13 +59,13 @@ useEffect(() => {
         <meta property="og:description" content={description} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${baseUrl}/blog/${slug}`} />
-        {image && <meta property="og:image" content={`${baseUrl}${image}`} />}
+        <meta property="og:image" content={ogImage} />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        {image && <meta name="twitter:image" content={`${baseUrl}${image}`} />}
+        <meta name="twitter:image" content={ogImage} />
 
         {/* Canonical link */}
         <link rel="canonical" href={`${baseUrl}/blog/${slug}`} />

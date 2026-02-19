@@ -60,7 +60,7 @@ function Projects() {
         />
         <meta
           property="og:image"
-          content="https://www.bennett-eghan.com/og-main.png"
+          content="https://www.bennett-eghan.com/og-main.png?v=2"
         />
         <meta
           property="og:url"

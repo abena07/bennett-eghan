@@ -50,7 +50,7 @@ export default function Blog() {
           property="og:description"
           content="insights, from abena's experience as a swe."
         />
-        <meta property="og:image" content="https://www.bennett-eghan.com/og-main.png" />
+        <meta property="og:image" content="https://www.bennett-eghan.com/og-main.png?v=2" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.bennett-eghan.com/blog" />
       </Helmet>
