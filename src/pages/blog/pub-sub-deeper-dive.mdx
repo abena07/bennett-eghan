@@ -1,0 +1,264 @@
+export const meta = {
+  title: "a deeper dive into pub/sub",
+  date: "feb. 19, 2026",
+  description: "a technical walkthrough of pub/sub in a real system, building a mini live comment stream with fastapi and rabbitmq.",
+  tags: ["technical"]
+}
+
+this blog is part two of [*what are pub subs*](https://www.bennett-eghan.com/blog/pub-sub). after writing part one i realized it needed a part two. part one explained the concept, but didn't really show the technicalities. so here's a more technical walkthrough.
+
+## the aim & process
+
+the aim of this project was to understand what pub/sub actually looks like in code.
+so i built a [mini live comment stream](https://github.com/abena07/mini-live-comment-stream). i wanted the system to do a number of things.
+
+1. users connect to a live stream
+2. they can send a comment
+3. everyone else connected should see it
+
+what this translates to in technical terms is we have a **producer** that sends comments and **consumers** that receive them. instead of sending messages directly to queues, rabbitmq uses an **exchange** as an intermediary. think of the exchange as a routing agent: it receives the message from the producer and decides where it goes from there.
+
+```
+PRODUCER → EXCHANGE → BINDINGS → QUEUE → CONSUMER
+```
+
+messages are published to an exchange, and the exchange decides how they get routed to queues based on rules called bindings.
+
+## exchange types
+
+before picking an exchange type, it's worth understanding what each one actually does, because this decision shapes the entire routing behavior of your system. for a deeper breakdown, [cloudamqp has a solid reference on this](https://www.cloudamqp.com/blog/part4-rabbitmq-for-beginners-exchanges-routing-keys-bindings.html).
+
+<br />
+
+**direct** routes a message to any queue whose binding key exactly matches the routing key of the message. the routing key acts like an address: the exchange looks at it and delivers the message only to queues that are bound with that exact key. for example, if a queue is bound with the key `comment_new`, only messages published with the routing key `comment_new` will reach it. nothing else gets through. it's precise, intentional delivery, useful when you know exactly where a message needs to go.
+
+<br />
+
+**fanout** ignores routing keys entirely. it takes every message published to it and broadcasts a copy to every queue bound to the exchange, no conditions, no filtering. the fanout exchange routes published messages to any queues bound to it without any conditions and no balancing between the queues. if 10 queues are bound, all 10 get the message. this is the type i used, because in a live comment system, i don't want selective delivery. i want every connected consumer to receive every comment.
+
+<br />
+
+**topic** sits between direct and fanout. rather than requiring an exact match, it uses wildcard patterns on the routing key. a queue can bind with a pattern like <code>comments.&#42;</code> and receive any message whose routing key starts with <code>comments.</code>, so <code>comments.new</code>, <code>comments.deleted</code>, and <code>comments.edited</code> would all match. the <code>&#42;</code> wildcard matches exactly one word, and <code>&#35;</code> matches zero or more. it's useful when you have categories of events and different consumers only care about certain subsets.
+
+<br />
+
+**headers** takes a completely different approach. instead of looking at the routing key, it routes based on attributes in the message header. you define key-value pairs as the binding condition, and the exchange checks whether the message headers match. you can set the condition to require all headers to match (`x-match = all`) or just one (`x-match = any`). it's the most flexible of the four, but also the least commonly used and carries more overhead than the others.
+
+<br />
+
+for this system i went with the **fanout** approach. every consumer subscribed to the exchange gets every message. that's exactly the broadcast behavior a live comment stream needs.
+
+## scope
+
+this focuses strictly on the broadcast layer. in a real system, this would sit between a comment service and your realtime websocket servers. this separation allows write traffic and read traffic to scale independently.
+
+## architecture
+
+at a high level:
+
+```
+client → api → rabbitmq exchange → multiple queues → consumers
+```
+
+each consumer simulates a realtime server.
+
+## the producer
+
+the producer accepts a message and publishes it to a fanout exchange.
+
+```py
+import pika
+import json
+
+class RabbitManager:
+    def __init__(self, host="localhost", exchange="comments_fanout"):
+        self.host = host
+        self.exchange = exchange
+
+    def publish(self, message):
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters(self.host)
+        )
+        channel = connection.channel()
+
+        channel.exchange_declare(
+            exchange=self.exchange,
+            exchange_type='fanout',
+            durable=True
+        )
+
+        channel.basic_publish(
+            exchange=self.exchange,
+            routing_key='',
+            body=json.dumps(message),
+            properties=pika.BasicProperties(
+                delivery_mode=2
+            )
+        )
+
+        connection.close()
+        print(f"[Published to {self.exchange}]: {message}")
+```
+
+key things happening here:
+
+* we declare a **fanout exchange**
+* routing_key is ignored
+* <code>delivery_mode=2</code> persists the message to disk; if the broker restarts before the message is consumed, it survives. without it, it's gone.
+
+the producer and the consumers are decoupled. the producer does not know who the consumers are. it just publishes.
+
+## the api layer
+
+the api simply receives comments and hands them off to rabbitmq.
+
+```python
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from core.publisher import RabbitManager
+
+class Comment(BaseModel):
+    username: str
+    message: str
+
+app = FastAPI()
+rabbit = RabbitManager()
+
+@app.post("/comments")
+async def post_comments(comment: Comment):
+    try:
+        rabbit.publish(comment.dict())
+    except Exception:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to queue comment"
+        )
+    return {"status": "queued", "comment": comment}
+```
+
+when does the consumer tie in? the flow: you start the consumer (it creates its queue, binds it, and sits there listening) → you curl → api publishes → exchange copies to each bound queue → each consumer's callback runs.
+
+## running it
+
+to see the broadcast in action, you'll need rabbitmq running and a few terminals open. start the consumers first so they create their queues and bind to the exchange; then when you post a comment via the api, the message is published and each consumer gets it right away.
+
+**start rabbitmq:**
+```bash
+docker run -d -p 5672:5672 rabbitmq
+```
+
+**start 2-3 consumers** (each in a separate terminal):
+```bash
+python consumers/comment_consumer.py
+```
+
+**start the api:**
+```bash
+uvicorn core.api:app --reload
+```
+
+**send a comment:**
+```bash
+curl -X POST http://localhost:8000/comments \
+  -H "Content-Type: application/json" \
+  -d '{"username": "alice", "message": "hello world"}'
+```
+
+**expected response:**
+```json
+{"status": "queued", "comment": {"username": "alice", "message": "hello world"}}
+```
+
+every consumer terminal should print the same message. that's the fanout working: one publish, every bound queue receives a copy.
+
+## the consumer
+
+each consumer creates its own temporary queue and binds it to the same exchange.
+
+```python
+import json
+import pika
+
+class RabbitHandler:
+    def __init__(self, host="localhost", exchange="comments_fanout"):
+        self.host = host
+        self.exchange = exchange
+
+    def consume(self):
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters(self.host)
+        )
+        channel = connection.channel()
+
+        channel.exchange_declare(
+            exchange=self.exchange,
+            exchange_type='fanout',
+            durable=True
+        )
+
+        result = channel.queue_declare(
+            queue='',
+            exclusive=True
+        )
+        queue_name = result.method.queue
+
+        channel.queue_bind(
+            exchange=self.exchange,
+            queue=queue_name
+        )
+
+        def callback(ch, method, properties, body):
+            message = json.loads(body)
+            print(f"[Received]: {message}")
+            ch.basic_ack(
+                delivery_tag=method.delivery_tag
+            )
+
+        channel.basic_consume(
+            queue=queue_name,
+            on_message_callback=callback
+        )
+        channel.start_consuming()
+
+if __name__ == "__main__":
+    handler = RabbitHandler()
+    handler.consume()
+```
+
+the **callback** is the `def callback(ch, method, properties, body):` block: that's what runs when a message lands in the queue. it decodes the body, prints it, and acks the message. it's registered with `basic_consume(queue=queue_name, on_message_callback=callback)`, so whenever the consumer receives a delivery, rabbitmq calls that function.
+
+the other important part is:
+
+```python
+queue_declare(queue='', exclusive=True)
+```
+
+this creates a unique queue for each consumer instance. so if you start 3 consumers:
+
+* you get 3 queues
+* all bound to the same fanout exchange
+* each receives a copy of every message
+
+one thing worth knowing: ordering is preserved within a single queue, but not guaranteed across different queues or consumers. consumer A and consumer B will both get every message, but not necessarily in the same sequence. for a comment stream that's usually fine; for something like a financial feed, it wouldn't be.
+
+## conclusion
+
+in sum, this demonstrates a broadcast pattern.
+
+in a real system, each consumer would be maintaining open websocket connections and pushing messages to thousands of users instead of printing to a terminal.
+
+but the producer stays exactly the same whether there are 3 consumers or 300.
+
+the producer publishes.
+the exchange broadcasts.
+the consumers receive.
+
+none of them know about each other, and that’s the whole point.
+
+they’re decoupled.
+
+and because they’re decoupled, you can scale consumers horizontally, replace components independently, or plug this pattern into any system that requires broadcast.
+
+that’s the real takeaway.
+
+

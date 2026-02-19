@@ -196,3 +196,93 @@ body {
 .pika-icon path {
   stroke: #0B0F1F;
 }
+
+/* Blog code blocks: DM Mono + GitHub Dark Colorblind (syntax highlighting) */
+.prose pre {
+  font-family: "DM Mono", ui-monospace, monospace !important;
+  background-color: #0d1117 !important;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #c9d1d9;
+}
+
+.prose pre code {
+  font-family: "DM Mono", ui-monospace, monospace !important;
+  background: none !important;
+  padding: 0 !important;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* Prism token colors — GitHub Dark Colorblind style */
+.prose pre .token.comment,
+.prose pre .token.prolog,
+.prose pre .token.doctype,
+.prose pre .token.cdata {
+  color: #8b949e;
+}
+
+.prose pre .token.punctuation {
+  color: #8b949e;
+}
+
+.prose pre .token.keyword,
+.prose pre .token.operator {
+  color: #d2a8ff;
+}
+
+.prose pre .token.keyword.control-flow {
+  color: #ff7b72;
+}
+
+/* class names & function calls (e.g. BlockingConnection, ConnectionParameters) → orange */
+.prose pre .token.function,
+.prose pre .token.class-name {
+  color: #ffa657;
+}
+
+.prose pre .token.string,
+.prose pre .token.attr-value {
+  color: #a5d6ff;
+}
+
+.prose pre .token.number,
+.prose pre .token.boolean {
+  color: #79c0ff;
+}
+
+/* parameter / variable (e.g. host in self.host = host) → yellow */
+.prose pre .token.parameter,
+.prose pre .token.variable,
+.prose pre .token.attr-name {
+  color: #e6db74;
+}
+
+/* property (e.g. .host in self.host) → grey */
+.prose pre .token.property {
+  color: #8b949e;
+}
+
+.prose pre .token.tag {
+  color: #7ee787;
+}
+
+.prose :not(pre) > code {
+  font-family: "DM Mono", ui-monospace, monospace !important;
+  background-color: #0d1117;
+  border: none;
+  border-radius: 4px;
+  padding: 0.2em 0.4em;
+  font-size: 0.875em;
+  color: #c9d1d9;
+}
+
+/* Tailwind Typography adds backticks via ::before/::after on inline code — remove them */
+.prose code::before,
+.prose code::after {
+  content: none !important;
+}

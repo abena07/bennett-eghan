@@ -2,6 +2,7 @@ import path from "path";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@mdx-js/rollup";
+import rehypePrism from "rehype-prism-plus";
 import { defineConfig } from "vite";
 import ViteSitemap from "vite-plugin-sitemap";
 import { createHtmlPlugin } from "vite-plugin-html";
@@ -14,7 +15,7 @@ const dynamicRoutes = [
 export default defineConfig({
   plugins: [
     react(),
-    mdx(),
+    mdx({ rehypePlugins: [rehypePrism] }),
     tailwindcss(),
 
     // Sitemap generation
