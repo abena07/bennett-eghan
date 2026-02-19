@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Share card – OG image</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700&display=swap" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1200px;
+      height: 630px;
+      margin: 0;
+      background: #E1E4EA;
+      font-family: 'IBM Plex Mono', 'Source Sans 3', ui-monospace, monospace;
+    }
+    .card {
+      width: 100%;
+      height: 100%;
+      min-height: 630px;
+      background: #E1E4EA;
+      padding: 32px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+    /* Smaller heatmap so text stays in crop-safe center */
+    .heatmap {
+      display: grid;
+      grid-template-columns: repeat(19, 10px);
+      grid-template-rows: repeat(6, 10px);
+      gap: 2px;
+      margin-bottom: 24px;
+    }
+    .heatmap-cell {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+    .heatmap-cell[data-level="0"] { background: #E1E4EA; }
+    .heatmap-cell[data-level="1"] { background: rgba(11, 15, 31, 0.15); }
+    .heatmap-cell[data-level="2"] { background: rgba(11, 15, 31, 0.35); }
+    .heatmap-cell[data-level="3"] { background: rgba(11, 15, 31, 0.55); }
+    .heatmap-cell[data-level="4"] { background: #0B0F1F; }
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .name {
+      font-size: 32px;
+      font-weight: 700;
+      color: #0B0F1F;
+      line-height: 1.2;
+    }
+    .tagline {
+      font-size: 20px;
+      font-weight: 600;
+      color: #0B0F1F;
+      letter-spacing: 0.02em;
+    }
+    .role {
+      font-size: 16px;
+      font-weight: 500;
+      color: #0B0F1F;
+      opacity: 0.85;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="heatmap" id="heatmap"></div>
+    <div class="content">
+      <p class="name">Phillipa Bennett-Eghan</p>
+      <p class="tagline">BUILDING BREAKING & ENGINEERING THINGS</p>
+      <p class="role">SWE</p>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var rows = 6, cols = 19;
+      var grid = document.getElementById('heatmap');
+      for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+          var cell = document.createElement('div');
+          cell.className = 'heatmap-cell';
+          cell.setAttribute('data-level', Math.floor(Math.random() * 5));
+          grid.appendChild(cell);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
