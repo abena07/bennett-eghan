@@ -39,7 +39,7 @@ useEffect(() => {
   if (!post) return <p>post not found 😢</p>;
 
   const PostComponent = post.component;
-  const { title, description, date, image } = post.meta;
+  const { title, description, date, image, readingTime } = post.meta;
 
   const baseUrl = "https://www.bennett-eghan.com";
 
@@ -71,7 +71,15 @@ useEffect(() => {
       </Helmet>
 
       <h2 className="text-[32px]">{title}</h2>
-      <p className="text-[18px] text-[#494949]">{date}</p>
+      <p className="text-[18px] text-[#0B0F1F]/80">
+        {date}
+        {readingTime != null && (
+          <>
+            <span className="mx-2 text-[#0B0F1F]/50">·</span>
+            <span>{readingTime} min read</span>
+          </>
+        )}
+      </p>
       <PostComponent />
 
       {/* ✅ Giscus Comment Section */}

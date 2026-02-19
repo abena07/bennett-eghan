@@ -10,9 +10,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: #0B0F1F;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -79,31 +79,22 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 
 
 body {
   font-family: var(--font-sans);
 }
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -177,13 +168,15 @@ body {
 }
 
 @theme {
-  --font-sans: "Source Sans 3", sans-serif;
+  --font-sans: "IBM Plex Mono", "Source Sans 3", ui-monospace, monospace;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
+  html,
   body {
     @apply bg-background text-foreground;
   }
@@ -194,4 +187,8 @@ body {
 #nav a:hover,
 #nav a:active {
   color: inherit !important;
+}
+
+.pika-icon path {
+  stroke: #0B0F1F;
 }

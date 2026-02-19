@@ -17,11 +17,11 @@ export function Navbar() {
               to={path}
               end // important for exact match on "/"
               className={({ isActive }) =>
-                `relative px-3 py-1.5 text-[16px] font-medium transition-all duration-200 rounded-md
+                `relative px-3 py-1.5 text-[16px] font-medium transition-all duration-200 rounded-[4px]
                  ${
                    isActive
-                     ? "bg-gray-500/15 text-gray-600"
-                     : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                     ? "bg-[#E1E4EA] text-[#0B0F1F]"
+                     : "text-[#0B0F1F] hover:bg-[#E1E4EA]/60"
                  }`
               }
             >
