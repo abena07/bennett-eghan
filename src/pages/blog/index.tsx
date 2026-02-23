@@ -55,7 +55,7 @@ export default function Blog() {
         <meta property="og:url" content="https://www.bennett-eghan.com/blog" />
       </Helmet>
 
-      <p className="text-[14px] font-medium text-[#666666] mb-6">blog</p>
+      <p className="text-[16px] font-medium text-[#0B0F1F] mb-6">blog</p>
 
       {/* Tag filter */}
       {allTags.length > 0 && (
@@ -70,7 +70,7 @@ export default function Blog() {
                 setTagFilter(FILTER_ALL);
               }
             }}
-            className={`cursor-pointer text-[14px] font-medium px-2 py-1 transition ${
+            className={`cursor-pointer text-[12px] font-medium px-2 py-1 transition ${
               tagFilter === FILTER_ALL
                 ? "bg-[#0B0F1F] text-white"
                 : "bg-transparent text-[#0B0F1F] hover:bg-[#E1E4EA]/60"
@@ -90,7 +90,7 @@ export default function Blog() {
                   setTagFilter(tag);
                 }
               }}
-              className={`cursor-pointer text-[14px] font-medium px-2 py-1 transition ${
+              className={`cursor-pointer text-[12px] font-medium px-2 py-1 transition ${
                 tagFilter === tag
                   ? "bg-[#0B0F1F] text-white"
                   : "bg-transparent text-[#0B0F1F] hover:bg-[#E1E4EA]/60"

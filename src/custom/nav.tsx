@@ -17,7 +17,7 @@ export function Navbar() {
               to={path}
               end // important for exact match on "/"
               className={({ isActive }) =>
-                `relative px-2 py-1 text-[14px] font-medium transition-all duration-200
+                `relative px-2 py-1 text-[12px] font-medium transition-all duration-200
                  ${
                    isActive
                      ? "bg-[#E1E4EA] text-[#0B0F1F]"

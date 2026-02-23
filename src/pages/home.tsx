@@ -93,7 +93,7 @@ function Home() {
             </span>
           </div>
         </div>
-        <p className="text-[14px] font-medium text-black">hi, i'm Abena 👋🏿</p>
+        <p className="text-[16px] font-medium text-[#0B0F1F]">hi, i'm Abena 👋🏿</p>
 
         <div className="text-[14px] mt-4 leading-relaxed text-black">
           i'm a <span
@@ -126,7 +126,7 @@ function Home() {
         <div className="flex flex-col gap-2 mt-16">
           <div className="text-[14px] font-medium text-black">stalk me</div>
 
-          <div className="flex items-center gap-2.5 mt-1 text-[14px] text-black flex-wrap">
+          <div className="flex items-center gap-2.5 mt-1 text-[12px] text-black flex-wrap">
             {/* GitHub */}
             <a
               href="https://github.com/abena07"

@@ -78,7 +78,7 @@ function Projects() {
           ease: [0.25, 0.1, 0.25, 1],
         }}
       >
-        <p className="text-[14px] font-medium text-[#0B0F1F]">featured projects</p>
+        <p className="text-[16px] font-medium text-[#0B0F1F]">featured projects</p>
 
         {/* Projects Grid - card layout */}
         <div className="mt-6 space-y-6">
@@ -118,7 +118,7 @@ function Projects() {
                     <span className="text-[12px] font-medium uppercase tracking-wide text-[#0B0F1F]/80 mt-1 inline-block">
                       {project.type}
                     </span>
-                    <p className="text-[14px] leading-relaxed text-[#0B0F1F] mt-3">
+                    <p className="text-[12px] leading-relaxed text-[#0B0F1F] mt-3">
                       {project.description}
                     </p>
                     <div className="mt-4 flex flex-wrap items-center gap-2 text-[12px] text-[#0B0F1F]/80">
