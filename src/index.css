@@ -18,7 +18,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --radius: 0.625rem;
+  --radius: 0;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -69,7 +69,6 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -130,10 +129,10 @@ body {
 }
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -202,7 +201,6 @@ body {
   font-family: "DM Mono", ui-monospace, monospace !important;
   background-color: #0d1117 !important;
   border: none;
-  border-radius: 6px;
   padding: 1rem 1.25rem;
   overflow-x: auto;
   font-size: 0.875rem;
@@ -275,7 +273,6 @@ body {
   font-family: "DM Mono", ui-monospace, monospace !important;
   background-color: #0d1117;
   border: none;
-  border-radius: 4px;
   padding: 0.2em 0.4em;
   font-size: 0.875em;
   color: #c9d1d9;
@@ -285,4 +282,20 @@ body {
 .prose code::before,
 .prose code::after {
   content: none !important;
+}
+
+/* Blog: 14px content, 12px meta */
+.blog-post.prose {
+  font-size: 14px;
+}
+.blog-post.prose h1,
+.blog-post.prose h2,
+.blog-post.prose h3,
+.blog-post.prose h4 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.blog-meta {
+  font-size: 12px;
+  color: #888888;
 }

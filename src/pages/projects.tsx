@@ -78,7 +78,7 @@ function Projects() {
           ease: [0.25, 0.1, 0.25, 1],
         }}
       >
-        <p className="text-xl font-medium text-[#0B0F1F]">featured projects</p>
+        <p className="text-[14px] font-medium text-[#0B0F1F]">featured projects</p>
 
         {/* Projects Grid - card layout */}
         <div className="mt-6 space-y-6">
@@ -92,7 +92,7 @@ function Projects() {
                 delay: index * 0.1,
                 ease: "easeOut",
               }}
-              className="rounded-2xl overflow-hidden bg-[#E1E4EA]"
+              className="overflow-hidden rounded-[4px] bg-[#E1E4EA]"
             >
               {/* Top graphic strip - subtle horizontal lines effect */}
               <div
@@ -112,16 +112,16 @@ function Projects() {
               <div className="px-6 pb-6 pt-1">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-[20px] font-bold text-[#0B0F1F] capitalize">
+                    <h3 className="text-[14px] font-bold text-[#0B0F1F] capitalize">
                       {project.title}
                     </h3>
-                    <span className="text-[13px] font-medium uppercase tracking-wide text-[#0B0F1F]/80 mt-1 inline-block">
+                    <span className="text-[12px] font-medium uppercase tracking-wide text-[#0B0F1F]/80 mt-1 inline-block">
                       {project.type}
                     </span>
-                    <p className="text-[16px] leading-relaxed text-[#0B0F1F] mt-3">
+                    <p className="text-[14px] leading-relaxed text-[#0B0F1F] mt-3">
                       {project.description}
                     </p>
-                    <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-[#0B0F1F]/80">
+                    <div className="mt-4 flex flex-wrap items-center gap-2 text-[12px] text-[#0B0F1F]/80">
                       {project.tech.map((t, idx) => (
                         <span key={t} className="font-mono">
                           {t}
@@ -163,7 +163,7 @@ function Projects() {
         </div>
 
         {/* More Projects Link */}
-        <div className="mt-12 text-[16px] text-[#0B0F1F]">
+        <div className="mt-12 text-[14px] text-[#0B0F1F]">
           see more on{" "}
           <a
             href="https://github.com/abena07"

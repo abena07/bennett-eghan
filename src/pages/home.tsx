@@ -83,9 +83,9 @@ function Home() {
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <div className="flex justify-start mb-5 hidden md:flex">
-          <div className={`inline-flex items-center gap-3 px-1.5 py-0.5 ${banner.bgColor} border ${banner.borderColor} rounded-full transition-colors duration-300`}>
-            <div className={`w-2.5 h-2.5 ${banner.dotColor} rounded-full animate-pulse`} />
-            <span className={`text-sm font-medium ${banner.textColor} transition-colors duration-300`}>
+          <div className={`inline-flex items-center gap-3 px-1.5 py-0.5 rounded-[2px] ${banner.bgColor} border ${banner.borderColor} transition-colors duration-300`}>
+            <div className={`w-2.5 h-2.5 rounded-[2px] ${banner.dotColor} animate-pulse`} />
+            <span className={`text-[12px] font-medium ${banner.textColor} transition-colors duration-300`}>
               i'm currently{" "}
               <span className={`font-semibold ${banner.boldTextColor} transition-colors duration-300`}>
                 {banner.text}
@@ -93,9 +93,9 @@ function Home() {
             </span>
           </div>
         </div>
-        <p className="text-xl font-medium text-black">hi, i'm Abena 👋🏿</p>
+        <p className="text-[14px] font-medium text-black">hi, i'm Abena 👋🏿</p>
 
-        <div className="text-[18px] mt-4 leading-relaxed text-black">
+        <div className="text-[14px] mt-4 leading-relaxed text-black">
           i'm a <span
             className="text-[#0B0F1F] font-bold hover-underline cursor-pointer"
             onMouseEnter={() => setActiveTheme("swe")}
@@ -109,7 +109,7 @@ function Home() {
           here, i document my experiences, learnings and my occasional side quests.
         </div>
 
-        <div className="text-[18px] mt-4 leading-relaxed text-black">
+        <div className="text-[14px] mt-4 leading-relaxed text-black">
           outside of work, i'm a fellow @{" "}
           <a
             href="https://hxilabs.com"
@@ -124,9 +124,9 @@ function Home() {
         </div>
 
         <div className="flex flex-col gap-2 mt-16">
-          <div className="text-[16px] font-medium text-black">stalk me</div>
+          <div className="text-[14px] font-medium text-black">stalk me</div>
 
-          <div className="flex items-center gap-2.5 mt-1 text-[16px] text-black flex-wrap">
+          <div className="flex items-center gap-2.5 mt-1 text-[14px] text-black flex-wrap">
             {/* GitHub */}
             <a
               href="https://github.com/abena07"

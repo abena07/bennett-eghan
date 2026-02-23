@@ -55,11 +55,11 @@ export default function Blog() {
         <meta property="og:url" content="https://www.bennett-eghan.com/blog" />
       </Helmet>
 
-      <p className="text-xl font-medium text-[#0B0F1F]">blog</p>
+      <p className="text-[14px] font-medium text-[#666666] mb-6">blog</p>
 
       {/* Tag filter */}
       {allTags.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mb-6 flex flex-wrap gap-2">
           <span
             role="button"
             tabIndex={0}
@@ -70,7 +70,7 @@ export default function Blog() {
                 setTagFilter(FILTER_ALL);
               }
             }}
-            className={`cursor-pointer text-sm font-medium px-3 py-1.5 rounded-[4px] transition ${
+            className={`cursor-pointer text-[14px] font-medium px-2 py-1 transition ${
               tagFilter === FILTER_ALL
                 ? "bg-[#0B0F1F] text-white"
                 : "bg-transparent text-[#0B0F1F] hover:bg-[#E1E4EA]/60"
@@ -90,7 +90,7 @@ export default function Blog() {
                   setTagFilter(tag);
                 }
               }}
-              className={`cursor-pointer text-sm font-medium px-3 py-1.5 rounded-[4px] transition ${
+              className={`cursor-pointer text-[14px] font-medium px-2 py-1 transition ${
                 tagFilter === tag
                   ? "bg-[#0B0F1F] text-white"
                   : "bg-transparent text-[#0B0F1F] hover:bg-[#E1E4EA]/60"
@@ -103,50 +103,32 @@ export default function Blog() {
       )}
 
       {sortedPosts.length === 0 ? (
-        <p className="text-[18px] mt-6 leading-relaxed text-[#0B0F1F]">
+        <p className="text-[14px] mt-6 leading-relaxed text-[#0B0F1F]">
           wow such empty 💀
         </p>
       ) : (
-        <ul className="mt-6 space-y-4">
-  {sortedPosts.map(({ slug, meta }) => (
-    <li key={slug}>
-      <Link
-        to={`/blog/${slug}`}
-        className="block border-b border-gray-200 pb-1 group"
-      >
-        <div className="flex justify-between items-center text-[#0B0F1F] transform transition-all duration-300 ease-in-out group-hover:-translate-x-1 group-hover:opacity-90">
-          <div className="flex items-center gap-2 md:text-[18px]">
-            <span>{meta.title}</span>
-
-            {/* Tags */}
-            {meta.tags && meta.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {meta.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[#0B0F1F] text-sm font-medium px-2 py-0.5 rounded-[4px] bg-[#E1E4EA]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <span className="md:text-[18px] ml-4 whitespace-nowrap lowercase transition-all duration-300 flex items-center gap-2">
-            {meta.date &&
-              new Date(meta.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-          </span>
-        </div>
-      </Link>
-    </li>
-  ))}
-</ul>
-
+        <ul className="space-y-5">
+          {sortedPosts.map(({ slug, meta }) => (
+            <li key={slug}>
+              <Link
+                to={`/blog/${slug}`}
+                className="blog-list-link flex justify-between items-center w-full py-1 px-0 group no-underline"
+              >
+                <span className="text-[14px] text-[#0B0F1F] group-hover:bg-[#0B0F1F] group-hover:text-white group-hover:no-underline py-0.5 px-1 -mx-1 transition-colors duration-150 underline decoration-[#0B0F1F] decoration-1 underline-offset-2">
+                  {meta.title}
+                </span>
+                <span className="text-[12px] text-[#888888] whitespace-nowrap ml-4 shrink-0">
+                  {meta.date &&
+                    new Date(meta.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       )}
     </motion.div>
   );

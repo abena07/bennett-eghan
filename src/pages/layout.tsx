@@ -10,7 +10,7 @@ export function Layout() {
         <main className="w-full mt-2 flex-1">
           <Outlet />
         </main>
-        <footer className="mt-auto pt-8 text-left text-sm text-[#0B0F1F]/80">
+        <footer className="mt-auto pt-8 text-left text-[12px] text-[#0B0F1F]/80">
           © {new Date().getFullYear()} | Phillipa Bennett-Eghan
         </footer>
       </div>

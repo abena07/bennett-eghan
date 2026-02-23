@@ -45,7 +45,7 @@ useEffect(() => {
   const ogImage = image ? `${baseUrl}${image}` : `${baseUrl}/og-main.png?v=2`;
 
   return (
-    <article className="prose prose-p:text-[18px] prose-li:text-[18px] max-w-3xl pb-32">
+    <article className="prose prose-p:text-[14px] prose-li:text-[14px] prose-sm max-w-3xl pb-32 blog-post">
       {/* ✅ SEO Meta Tags */}
       <Helmet>
         <title>{title}</title>
@@ -71,12 +71,12 @@ useEffect(() => {
         <link rel="canonical" href={`${baseUrl}/blog/${slug}`} />
       </Helmet>
 
-      <h2 className="text-[32px]">{title}</h2>
-      <p className="text-[18px] text-[#0B0F1F]/80">
+      <h2 className="text-[14px] font-medium text-[#0B0F1F]">{title}</h2>
+      <p className="blog-meta text-[12px] text-[#888888] mt-1">
         {date}
         {readingTime != null && (
           <>
-            <span className="mx-2 text-[#0B0F1F]/50">·</span>
+            <span className="mx-2 text-[#888888]">·</span>
             <span>{readingTime} min read</span>
           </>
         )}

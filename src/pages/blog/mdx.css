@@ -10,24 +10,22 @@
     overflow-y: hidden;
   }
 
-  /* Paragraph spacing */
+  /* Paragraph spacing — 14px across blog */
   & p {
     margin: 1rem 0;
     line-height: 1.6;
-    font-size: 0.9rem;
-    /* Equivalent to text-sm in Tailwind */
+    font-size: 14px;
   }
 
   /* Code block improvements */
   & pre {
     margin: 1rem 0;
     padding: 1rem;
-    border-radius: 0.5rem;
     overflow-x: auto;
   }
 
   & code {
-    font-size: 0.875rem;
+    font-size: 14px;
     line-height: 1.5;
   }
 
@@ -40,7 +38,6 @@
   & img {
     max-width: 100%;
     height: auto;
-    border-radius: 0.5rem;
   }
 
   /* Table styles */
@@ -61,25 +58,24 @@
     font-weight: 600;
   }
 
-  /* List styles */
+  /* List styles — 14px */
   & ul {
     padding-left: 1.5rem;
     margin: 1rem 0;
-    font-size: 0.875rem;
-    /* list-style-type: disc; */
+    font-size: 14px;
   }
 
   & ol {
     padding-left: 1.5rem;
     margin: 1rem 0;
-    font-size: 0.875rem;
+    font-size: 14px;
   }
 
   & li {
     margin: 0.5rem 0;
     padding-left: 0.5rem;
     position: relative;
-    font-size: 0.875rem;
+    font-size: 14px;
   }
 
   /* Custom bullet points for unordered lists */
@@ -115,7 +111,6 @@
   /* Hover effect for list items */
   & li:hover {
     background: var(--muted);
-    border-radius: 0.25rem;
     transition: background 0.2s ease;
   }
 
@@ -125,6 +120,5 @@
     padding: 1rem 1.5rem;
     border-left: 4px solid var(--primary);
     background: var(--muted);
-    border-radius: 0.5rem;
   }
 }
