@@ -39,13 +39,12 @@ useEffect(() => {
   if (!post) return <p>post not found 😢</p>;
 
   const PostComponent = post.component;
-  const { title, description, date, image, readingTime } = post.meta;
+  const { title, description, date, readingTime } = post.meta;
 
   const baseUrl = "https://www.bennett-eghan.com";
-  const ogImage = image ? `${baseUrl}${image}` : `${baseUrl}/og-main.png?v=2`;
 
   return (
-    <article className="prose prose-p:text-[14px] prose-li:text-[14px] prose-sm max-w-3xl pb-32 blog-post">
+    <article className="prose prose-p:text-[14px] prose-li:text-[14px] prose-sm max-w-3xl pb-24 blog-post prose-p:leading-normal prose-p:my-3 prose-headings:mt-7 prose-headings:mb-2 prose-ul:my-3 prose-ol:my-3 prose-li:my-1 prose-pre:my-3 prose-blockquote:my-3">
       {/* ✅ SEO Meta Tags */}
       <Helmet>
         <title>{title}</title>
@@ -59,19 +58,17 @@ useEffect(() => {
         <meta property="og:description" content={description} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${baseUrl}/blog/${slug}`} />
-        <meta property="og:image" content={ogImage} />
 
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
+        {/* Twitter Card — summary (title + description, no hero image) */}
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={ogImage} />
 
         {/* Canonical link */}
         <link rel="canonical" href={`${baseUrl}/blog/${slug}`} />
       </Helmet>
 
-      <h2 className="text-[14px] font-medium text-[#0B0F1F]">{title}</h2>
+      <h2 className="text-[14px] font-extrabold text-[#0B0F1F]">{title}</h2>
       <p className="blog-meta text-[12px] text-[#888888] mt-1">
         {date}
         {readingTime != null && (
@@ -84,7 +81,7 @@ useEffect(() => {
       <PostComponent />
 
       {/* ✅ Giscus Comment Section */}
-      <div id="giscus-comments" className="mt-16"></div>
+      <div id="giscus-comments" className="mt-10"></div>
     </article>
   );
 }

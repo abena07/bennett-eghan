@@ -5,20 +5,21 @@ import { Helmet } from "react-helmet-async";
 function Projects() {
   const projects = [
     {
-      title: "lumon",
+      title: "baremetal",
       description:
-        "an ai-powered financial inclusion platform designed to improve access to lending and financial guidance for underserved communities.",
-      tech: ["react", "typeScript", "tailwind", "go"],
-      github: "https://github.com/COV-Lumon-Industries/lumon-tech-dashboard",
-      type: "open source",
+        "a concurrent TCP server with a custom wire protocol, built from scratch in Go.",
+      tech: ["go"],
+      github: "https://github.com/abena07/baremetal",
+      type: "personal",
     },
     {
-      title: "council",
+      title: "publr",
       description:
-        "council is your intelligent legal co-pilot — a case management platform powered by specialized AI agents working together like a legal team.",
-      tech: ["react", "typeScript", "tailwind", "fastapi"],
-      demo: "https://council.legal/",
-      type: "fellowship work",
+        "a mini server that helps you post photos to your website & any social media of your choice (supports Instagram currently).",
+      tech: ["python", "fastapi", "typeScript", "postgresql"],
+      github: "https://github.com/abena07/publr",
+      demo: "https://publr.bennett-eghan.com/",
+      type: "personal",
     },
     {
       title: "fusion",
@@ -29,23 +30,6 @@ function Projects() {
       demo: "https://usefusion.app/",
       type: "open source",
     },
-    {
-      title: "loop",
-      description:
-        "a learning aid PWA for practicing literally anything using spaced repetition.",
-      tech: ["react"],
-      github: "https://github.com/romeo-folie/LooP",
-      demo: "https://app.codeloop.pro/",
-      type: "open source",
-    },
-    {
-      title: "chill seek",
-      description: "find places to hangout with a single prompt",
-      tech: ["react", ".Net"],
-      demo: "https://chillseek.app",
-      type: " personal",
-
-    }
   ];
 
   return (
@@ -78,10 +62,10 @@ function Projects() {
           ease: [0.25, 0.1, 0.25, 1],
         }}
       >
-        <p className="text-[16px] font-medium text-[#0B0F1F]">featured projects</p>
+        <p className="text-[16px] font-extrabold text-[#0B0F1F]">featured projects</p>
 
         {/* Projects Grid - card layout */}
-        <div className="mt-6 space-y-6">
+        <div className="mt-4 space-y-3">
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
@@ -109,8 +93,8 @@ function Projects() {
               />
 
               {/* Content */}
-              <div className="px-6 pb-6 pt-1">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div className="px-6 pb-5 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <h3 className="text-[14px] font-bold text-[#0B0F1F] capitalize">
                       {project.title}
@@ -118,10 +102,10 @@ function Projects() {
                     <span className="text-[12px] font-medium uppercase tracking-wide text-[#0B0F1F]/80 mt-1 inline-block">
                       {project.type}
                     </span>
-                    <p className="text-[12px] leading-relaxed text-[#0B0F1F] mt-3">
+                    <p className="text-[12px] leading-normal text-[#0B0F1F] mt-2">
                       {project.description}
                     </p>
-                    <div className="mt-4 flex flex-wrap items-center gap-2 text-[12px] text-[#0B0F1F]/80">
+                    <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px] text-[#0B0F1F]/80">
                       {project.tech.map((t, idx) => (
                         <span key={t} className="font-mono">
                           {t}
@@ -163,7 +147,7 @@ function Projects() {
         </div>
 
         {/* More Projects Link */}
-        <div className="mt-12 text-[14px] text-[#0B0F1F]">
+        <div className="mt-10 text-[14px] leading-normal text-[#0B0F1F]">
           see more on{" "}
           <a
             href="https://github.com/abena07"

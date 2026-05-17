@@ -55,11 +55,11 @@ export default function Blog() {
         <meta property="og:url" content="https://www.bennett-eghan.com/blog" />
       </Helmet>
 
-      <p className="text-[16px] font-medium text-[#0B0F1F] mb-6">blog</p>
+      <p className="text-[16px] font-extrabold text-[#0B0F1F] mb-4">blog</p>
 
       {/* Tag filter */}
       {allTags.length > 0 && (
-        <div className="mb-6 flex flex-wrap gap-2">
+        <div className="mb-4 flex flex-wrap gap-2">
           <span
             role="button"
             tabIndex={0}
@@ -103,11 +103,11 @@ export default function Blog() {
       )}
 
       {sortedPosts.length === 0 ? (
-        <p className="text-[14px] mt-6 leading-relaxed text-[#0B0F1F]">
+        <p className="text-[14px] mt-4 leading-normal text-[#0B0F1F]">
           wow such empty 💀
         </p>
       ) : (
-        <ul className="space-y-5">
+        <ul className="space-y-3">
           {sortedPosts.map(({ slug, meta }) => (
             <li key={slug}>
               <Link

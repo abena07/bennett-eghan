@@ -50,6 +50,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Text selection — aligns with nav chip `#E1E4EA` + ink `#0B0F1F` */
+  --selection-background: #e1e4ea;
+  --selection-color: #0b0f1f;
+  --selection-code-background: rgb(225 228 234 / 35%);
+  --selection-code-color: #f0f3f6;
 }
 
 /* a {
@@ -167,7 +173,7 @@ body {
 }
 
 @theme {
-  --font-sans: "IBM Plex Mono", "Source Sans 3", ui-monospace, monospace;
+  --font-sans: "DM Mono", ui-monospace, monospace;
 }
 
 @layer base {
@@ -183,6 +189,24 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Text drag-selection — site palette (same family as nav highlights) */
+  ::selection {
+    background-color: var(--selection-background);
+    color: var(--selection-color);
+  }
+
+  ::-moz-selection {
+    background-color: var(--selection-background);
+    color: var(--selection-color);
+  }
+
+  /* Dark Prism blocks: translucent gray chip so contrast stays readable */
+  .prose pre ::selection,
+  .prose pre ::-moz-selection {
+    background-color: var(--selection-code-background);
+    color: var(--selection-code-color);
+  }
 }
 
 #nav a,
@@ -190,6 +214,46 @@ body {
 #nav a:hover,
 #nav a:active {
   color: inherit !important;
+}
+
+/* Expanding underline on hover — `currentColor` matches link/body text */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+.hover-underline:hover::after,
+.hover-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Bold emphasis: faint resting underline + animated stroke on hover/focus */
+.hover-underline-muted::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.22;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.hover-underline-muted:hover::before,
+a.hover-underline-muted:focus-visible::before {
+  opacity: 0;
 }
 
 .pika-icon path {
@@ -287,6 +351,7 @@ body {
 /* Blog: 14px content, 12px meta */
 .blog-post.prose {
   font-size: 14px;
+  line-height: 1.5;
 }
 .blog-post.prose h1,
 .blog-post.prose h2,

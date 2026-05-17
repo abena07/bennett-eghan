@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "bunx vite",
     "build": "node scripts/reading-times.mjs && bunx tsc -b && bunx vite build",
-    "lint": "eslint .",
+    "lint": "node ./node_modules/eslint/bin/eslint.js .",
     "preview": "vite preview"
   },
   "dependencies": {
