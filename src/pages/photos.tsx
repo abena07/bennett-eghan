@@ -44,7 +44,9 @@ function codropsInViewport(el: HTMLElement, h?: number): boolean {
 }
 
 async function imagesLoaded(grid: HTMLElement): Promise<void> {
-  const imgs = Array.from(grid.querySelectorAll("img"));
+  // Only wait for placeholder images (non-lazy) — they define tile heights for masonry.
+  // Waiting for lazy main images causes a hang since they never load while tiles are invisible.
+  const imgs = Array.from(grid.querySelectorAll<HTMLImageElement>("img:not([loading='lazy'])"));
   await Promise.all(
     imgs.map(
       (img) =>
@@ -59,27 +61,6 @@ async function imagesLoaded(grid: HTMLElement): Promise<void> {
   );
 }
 
-/** Log payload from Publr and warn if URLs repeat (would break uniq React keys only). */
-function logPhotosFromApi(list: string[]): void {
-  console.log("[photos/publr] loaded", {
-    count: list.length,
-    urls: list,
-  });
-
-  const seen = new Map<string, number>();
-  let dups = 0;
-  for (const url of list) {
-    seen.set(url, (seen.get(url) ?? 0) + 1);
-    if (seen.get(url)! > 1) dups++;
-  }
-  if (dups > 0) {
-    const duplicateUrls = [...seen.entries()].filter(([, n]) => n > 1);
-    console.warn(
-      "[photos/publr] API returned duplicate URL(s); grid still renders one tile per slot",
-      duplicateUrls,
-    );
-  }
-}
 
 type PhotoLightboxProps = {
   urls: string[];
@@ -299,7 +280,6 @@ export default function Photos() {
         const data = (await res.json()) as PublrPhotosResponse;
         const list = Array.isArray(data.photos) ? data.photos : [];
         if (!cancelled) {
-          logPhotosFromApi(list);
           setPhotos(list);
           setLoadError(null);
         }
