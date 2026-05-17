@@ -364,13 +364,13 @@ a.hover-underline-muted:focus-visible::before {
  */
 .publr-sizer,
 .publr-photo-tile {
-  width: calc((100% - 24px) / 3);
+  width: calc((100% - 12px) / 2);
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 480px) {
   .publr-sizer,
   .publr-photo-tile {
-    width: calc(50% - 6px);
+    width: 100%;
   }
 }
 

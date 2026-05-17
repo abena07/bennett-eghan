@@ -5,7 +5,7 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col items-center px-6 w-full">
       {/* Narrow centered column - content flows top to bottom */}
-      <div className="w-full max-w-5xl flex flex-col pt-8 pb-16 min-h-screen">
+      <div className="w-full max-w-2xl flex flex-col pt-8 pb-16 min-h-screen">
         <Navbar />
         <main className="w-full mt-0.5 flex-1">
           <Outlet />
