@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const navItems = {
   "/projects": { name: "projects" },
+  "/photos": { name: "keepsakes" },
   "/blog": { name: "blog" },
 };
 

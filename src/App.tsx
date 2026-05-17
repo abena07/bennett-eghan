@@ -4,6 +4,7 @@ import Home from "@/pages/home";
 import Blog from "@/pages/blog/index";
 import BlogPost from "@/pages/blog/[slug]";
 import Projects from "@/pages/projects";
+import Photos from "@/pages/photos";
 
 // import Hello from '@/pages/blog/hello.mdx';
 
@@ -17,6 +18,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/photos" element={<Photos />} />
           <Route path="blog/:slug" element={<BlogPost />} /> {/* 👈 ADD THIS */}
 
           {/* <Route path="/hello" element={<Hello />} /> */}

@@ -77,7 +77,7 @@ function Home() {
           <p>
             in my downtime i'm either going through my{" "}
             <a
-              href="https://letterboxd.com/abena07/"
+              href="https://letterboxd.com/abena07/watchlist/"
               target="_blank"
               rel="noopener noreferrer"
               className="font-bold hover-underline hover-underline-muted"

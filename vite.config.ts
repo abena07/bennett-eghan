@@ -10,6 +10,7 @@ import { createHtmlPlugin } from "vite-plugin-html";
 const dynamicRoutes = [
   "/",
   "/projects",
+  "/photos",
   "/blog",
 ];
 export default defineConfig({
@@ -51,6 +52,7 @@ export default defineConfig({
         main: path.resolve(__dirname, "index.html"),
         blog: path.resolve(__dirname, "blog.html"),
         projects: path.resolve(__dirname, "projects.html"),
+        photos: path.resolve(__dirname, "photos.html"),
       },
       output: {
         manualChunks: (id) => {
