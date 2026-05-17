@@ -201,8 +201,6 @@ function writeCache(userId: string, urls: string[]): void {
 }
 
 function PhotoTile({ url, index, onOpen }: { url: string; index: number; onOpen: () => void }) {
-  const [placeholderLoaded, setPlaceholderLoaded] = useState(false);
-  const [fullLoaded, setFullLoaded] = useState(false);
   return (
     <button
       type="button"
@@ -211,23 +209,37 @@ function PhotoTile({ url, index, onOpen }: { url: string; index: number; onOpen:
       aria-label={`View photo ${index + 1} in gallery`}
     >
       <div
-        className={`relative overflow-hidden rounded-[2px] ${!placeholderLoaded ? "min-h-[180px] bg-[#E8E8E8] animate-pulse" : ""}`}
+        className="relative overflow-hidden rounded-[2px] animate-pulse"
+        style={{ minHeight: "180px", backgroundColor: "#E8E8E8" }}
       >
         <img
           src={toPlaceholderUrl(url)}
           aria-hidden
-          onLoad={() => setPlaceholderLoaded(true)}
-          onError={() => setPlaceholderLoaded(true)}
-          className={`block h-auto w-full transition-opacity duration-300 ${placeholderLoaded ? "opacity-100" : "opacity-0"}`}
-          style={placeholderLoaded ? { filter: "blur(12px)", transform: "scale(1.08)" } : undefined}
+          className="block h-auto w-full opacity-0 transition-opacity duration-300"
+          onLoad={(e) => {
+            const img = e.currentTarget;
+            const wrap = img.parentElement!;
+            wrap.style.minHeight = "";
+            wrap.style.backgroundColor = "";
+            wrap.classList.remove("animate-pulse");
+            img.style.opacity = "1";
+            img.style.filter = "blur(12px)";
+            img.style.transform = "scale(1.08)";
+          }}
+          onError={(e) => {
+            const wrap = e.currentTarget.parentElement!;
+            wrap.style.minHeight = "";
+            wrap.style.backgroundColor = "";
+            wrap.classList.remove("animate-pulse");
+          }}
         />
         <img
           src={url}
           alt=""
           loading="lazy"
           decoding="async"
-          onLoad={() => setFullLoaded(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${fullLoaded ? "opacity-100" : "opacity-0"}`}
+          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700"
+          onLoad={(e) => { e.currentTarget.style.opacity = "1"; }}
         />
       </div>
     </button>
@@ -346,6 +358,8 @@ export default function Photos() {
           }
         }
       });
+      // One extra frame so onLoad DOM mutations (height/style changes) are painted before masonry measures.
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
       if (!alive || !gridRef.current) return;
 
       const masonry = new Masonry(grid, {
