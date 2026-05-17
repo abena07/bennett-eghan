@@ -43,24 +43,6 @@ function codropsInViewport(el: HTMLElement, h?: number): boolean {
   );
 }
 
-async function imagesLoaded(grid: HTMLElement): Promise<void> {
-  // Only wait for placeholder images (non-lazy) — they define tile heights for masonry.
-  // Waiting for lazy main images causes a hang since they never load while tiles are invisible.
-  const imgs = Array.from(grid.querySelectorAll<HTMLImageElement>("img:not([loading='lazy'])"));
-  await Promise.all(
-    imgs.map(
-      (img) =>
-        new Promise<void>((resolve) => {
-          if (img.complete) resolve();
-          else {
-            img.addEventListener("load", () => resolve(), { once: true });
-            img.addEventListener("error", () => resolve(), { once: true });
-          }
-        }),
-    ),
-  );
-}
-
 
 type PhotoLightboxProps = {
   urls: string[];
@@ -205,8 +187,22 @@ function PhotoLightbox({ urls, initialIndex, onClose }: PhotoLightboxProps) {
   );
 }
 
+const CACHE_KEY = (userId: string) => `publr_photos_${userId}`;
+
+function readCache(userId: string): string[] | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY(userId));
+    return raw ? (JSON.parse(raw) as string[]) : null;
+  } catch { return null; }
+}
+
+function writeCache(userId: string, urls: string[]): void {
+  try { localStorage.setItem(CACHE_KEY(userId), JSON.stringify(urls)); } catch { /* quota exceeded */ }
+}
+
 function PhotoTile({ url, index, onOpen }: { url: string; index: number; onOpen: () => void }) {
-  const [loaded, setLoaded] = useState(false);
+  const [placeholderLoaded, setPlaceholderLoaded] = useState(false);
+  const [fullLoaded, setFullLoaded] = useState(false);
   return (
     <button
       type="button"
@@ -214,20 +210,24 @@ function PhotoTile({ url, index, onOpen }: { url: string; index: number; onOpen:
       className="block w-full cursor-zoom-in rounded-[2px] border-0 bg-transparent p-0 text-left outline-none outline-offset-0 ring-2 ring-transparent transition-[opacity,box-shadow] duration-200 hover:opacity-[0.92] hover:shadow-md hover:ring-[#0B0F1F]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0B0F1F]/25"
       aria-label={`View photo ${index + 1} in gallery`}
     >
-      <div className="relative overflow-hidden rounded-[2px]">
+      <div
+        className={`relative overflow-hidden rounded-[2px] ${!placeholderLoaded ? "min-h-[180px] bg-[#E8E8E8] animate-pulse" : ""}`}
+      >
         <img
           src={toPlaceholderUrl(url)}
           aria-hidden
-          className="block h-auto w-full"
-          style={{ filter: "blur(12px)", transform: "scale(1.08)" }}
+          onLoad={() => setPlaceholderLoaded(true)}
+          onError={() => setPlaceholderLoaded(true)}
+          className={`block h-auto w-full transition-opacity duration-300 ${placeholderLoaded ? "opacity-100" : "opacity-0"}`}
+          style={placeholderLoaded ? { filter: "blur(12px)", transform: "scale(1.08)" } : undefined}
         />
         <img
           src={url}
           alt=""
           loading="lazy"
           decoding="async"
-          onLoad={() => setLoaded(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${loaded ? "opacity-100" : "opacity-0"}`}
+          onLoad={() => setFullLoaded(true)}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${fullLoaded ? "opacity-100" : "opacity-0"}`}
         />
       </div>
     </button>
@@ -264,38 +264,32 @@ export default function Photos() {
   }>({ io: null, ro: null });
 
   useEffect(() => {
-    if (!userId) {
-      setPhotos([]);
-      setLoadError(null);
-      return;
-    }
+    if (!userId) { setPhotos([]); return; }
+
+    const cached = readCache(userId);
+    if (cached) setPhotos(cached);
 
     let cancelled = false;
     void (async () => {
       try {
         const res = await fetch(publrPhotosUrl(userId));
-        if (!res.ok) {
-          throw new Error(`photos request failed (${res.status})`);
-        }
+        if (!res.ok) throw new Error(`photos request failed (${res.status})`);
         const data = (await res.json()) as PublrPhotosResponse;
         const list = Array.isArray(data.photos) ? data.photos : [];
         if (!cancelled) {
+          writeCache(userId, list);
           setPhotos(list);
           setLoadError(null);
         }
       } catch (e) {
-        const msg =
-          e instanceof Error ? e.message : "could not load photos from publr.";
-        if (!cancelled) {
-          setLoadError(msg);
+        if (!cancelled && !cached) {
+          setLoadError(e instanceof Error ? e.message : "could not load photos.");
           setPhotos([]);
         }
       }
     })();
 
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [userId]);
 
   const teardownMasonryEffects = useCallback(() => {
@@ -334,7 +328,7 @@ export default function Photos() {
 
     void (async () => {
       teardownMasonryEffects();
-      await imagesLoaded(grid);
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
       if (!alive || !gridRef.current) return;
 
       const masonry = new Masonry(grid, {
