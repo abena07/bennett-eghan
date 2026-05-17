@@ -40,15 +40,15 @@ export default function Blog() {
     >
       {/* ✅ SEO meta tags */}
       <Helmet>
-        <title>abena | blog</title>
+        <title>phil | blog</title>
         <meta
           name="description"
-          content="read abena's latest blog posts."
+          content="read phil's latest blog posts."
         />
-        <meta property="og:title" content="abena's blog" />
+        <meta property="og:title" content="phil's blog" />
         <meta
           property="og:description"
-          content="insights, from abena's experience as a swe."
+          content="insights, from phil's experience as a swe."
         />
         <meta property="og:image" content="https://www.bennett-eghan.com/og-main.png?v=2" />
         <meta property="og:type" content="website" />

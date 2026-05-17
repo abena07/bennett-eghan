@@ -5,12 +5,12 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>abena | swe</title>
+        <title>phil | swe</title>
         <meta
           name="description"
           content="breaking building & engineering things — engineer from Ghana interested in systems, algorithms, and good UX."
         />
-        <meta property="og:title" content="Abena — swe" />
+        <meta property="og:title" content="phil — swe" />
         <meta
           property="og:description"
           content="breaking building & engineering things."
@@ -26,9 +26,9 @@ function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi, i'm Abena 👋🏿</p>
+        <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi, i'm Phil 👋🏿</p>
 
-        <div className="text-[14px] font-normal mt-4 leading-[1.55] text-[#0B0F1F]/92 space-y-3 [&_a]:text-[#0B0F1F] [&_span]:text-[#0B0F1F]">
+        <div className="text-[14px] font-normal mt-4 leading-[1.55] text-[#0B0F1F]/92 space-y-[calc(0.75rem+1px)] [&_a]:text-[#0B0F1F] [&_span]:text-[#0B0F1F]">
           <p>
             i'm an engineer from Ghana who's interested in{" "}
             <span className="inline font-bold">

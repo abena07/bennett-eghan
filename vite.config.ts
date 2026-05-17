@@ -30,9 +30,9 @@ export default defineConfig({
       minify: true,
       inject: {
         data: {
-          title: "abena's portfolio | swe",
+          title: "phil's portfolio | swe",
           description:
-            "explore abena's projects, blog, and insights.",
+            "explore phil's projects, blog, and insights.",
         },
       },
     }),

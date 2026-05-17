@@ -55,13 +55,13 @@ export default function BlogPost() {
   const baseUrl = "https://www.bennett-eghan.com";
 
   return (
-    <article className="prose prose-p:text-[14px] prose-li:text-[14px] prose-sm max-w-3xl pb-24 blog-post prose-p:leading-normal prose-p:my-3 prose-headings:mt-7 prose-headings:mb-2 prose-ul:my-3 prose-ol:my-3 prose-li:my-1 prose-pre:my-3 prose-blockquote:my-3">
+    <article className="prose prose-p:text-[14px] prose-li:text-[14px] prose-sm max-w-3xl pb-24 blog-post prose-p:leading-normal prose-p:my-[calc(0.75rem+1px)] prose-headings:mt-7 prose-headings:mb-2 prose-ul:my-3 prose-ol:my-3 prose-li:my-1 prose-pre:my-3 prose-blockquote:my-3">
       {/* ✅ SEO Meta Tags */}
       <Helmet>
         <title>{title}</title>
         <meta
           name="description"
-          content={description || "Read this blog post by Abenan."}
+          content={description || "Read this blog post by phil."}
         />
 
         {/* Open Graph / Facebook */}
