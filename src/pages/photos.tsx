@@ -328,7 +328,24 @@ export default function Photos() {
 
     void (async () => {
       teardownMasonryEffects();
-      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+      // Wait for tiny placeholder images to load so masonry gets real tile heights.
+      // 2s timeout as safety net if Cloudinary transforms fail.
+      await new Promise<void>((resolve) => {
+        const placeholders = Array.from(
+          grid.querySelectorAll<HTMLImageElement>("img:not([loading='lazy'])")
+        );
+        if (!placeholders.length) { resolve(); return; }
+        const timer = setTimeout(resolve, 2000);
+        let remaining = placeholders.length;
+        const done = () => { if (--remaining === 0) { clearTimeout(timer); resolve(); } };
+        for (const img of placeholders) {
+          if (img.complete && img.naturalHeight > 0) done();
+          else {
+            img.addEventListener("load", done, { once: true });
+            img.addEventListener("error", done, { once: true });
+          }
+        }
+      });
       if (!alive || !gridRef.current) return;
 
       const masonry = new Masonry(grid, {
