@@ -11,3 +11,8 @@ export function publrPhotosUrl(userId: string): string {
 }
 
 export type PublrPhotosResponse = { photos: string[] };
+
+/** Generate a tiny Cloudinary thumbnail URL (~1–2 KB) for blur-up placeholders. */
+export function toPlaceholderUrl(url: string): string {
+  return url.replace(/\/upload\//, "/upload/w_30,q_1,f_jpg/");
+}

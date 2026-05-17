@@ -10,6 +10,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import "swiper/css";
 import {
   publrPhotosUrl,
+  toPlaceholderUrl,
   PUBLR_USER_ID_DEFAULT,
   type PublrPhotosResponse,
 } from "@/lib/publr";
@@ -220,6 +221,35 @@ function PhotoLightbox({ urls, initialIndex, onClose }: PhotoLightboxProps) {
       </div>
     </div>,
     document.body,
+  );
+}
+
+function PhotoTile({ url, index, onOpen }: { url: string; index: number; onOpen: () => void }) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="block w-full cursor-zoom-in rounded-[2px] border-0 bg-transparent p-0 text-left outline-none outline-offset-0 ring-2 ring-transparent transition-[opacity,box-shadow] duration-200 hover:opacity-[0.92] hover:shadow-md hover:ring-[#0B0F1F]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0B0F1F]/25"
+      aria-label={`View photo ${index + 1} in gallery`}
+    >
+      <div className="relative overflow-hidden rounded-[2px]">
+        <img
+          src={toPlaceholderUrl(url)}
+          aria-hidden
+          className="block h-auto w-full"
+          style={{ filter: "blur(12px)", transform: "scale(1.08)" }}
+        />
+        <img
+          src={url}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${loaded ? "opacity-100" : "opacity-0"}`}
+        />
+      </div>
+    </button>
   );
 }
 
@@ -482,11 +512,11 @@ export default function Photos() {
         className="w-full"
       >
         <p className="text-[16px] font-extrabold text-[#0B0F1F] mb-1">
-          photos
+          keepsakes
         </p>
         <div className="mb-6 space-y-2">
           <p className="text-[12px] leading-snug text-[#0B0F1F]/75">
-            photos of people moments & things, powered by{" "}
+            photos of people, moments & things. powered by{" "}
             <a
               href="https://publr.bennett-eghan.com/"
               className="font-medium hover-underline hover-underline-muted"
@@ -522,22 +552,7 @@ export default function Photos() {
                 key={`${index}-${url}`}
                 className="publr-photo-tile"
               >
-                <figure className="m-0">
-                  <button
-                    type="button"
-                    onClick={() => openLightbox(index)}
-                    className="block w-full cursor-zoom-in rounded-[2px] border-0 bg-transparent p-0 text-left outline-none outline-offset-0 ring-2 ring-transparent transition-[opacity,box-shadow] duration-200 hover:opacity-[0.92] hover:shadow-md hover:ring-[#0B0F1F]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0B0F1F]/25"
-                    aria-label={`View photo ${index + 1} in gallery`}
-                  >
-                    <img
-                      src={url}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      className="box-border block h-auto w-full max-w-full border-0 bg-transparent align-top"
-                    />
-                  </button>
-                </figure>
+                <PhotoTile url={url} index={index} onOpen={() => openLightbox(index)} />
               </li>
             ))}
           </ul>
