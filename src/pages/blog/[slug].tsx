@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import posts from "./_index";
 import { useEffect } from "react";
@@ -7,36 +7,47 @@ export default function BlogPost() {
   const { slug } = useParams();
   const post = posts.find((p) => p.slug === slug);
 
-useEffect(() => {
-  if (!post) return;
+  useEffect(() => {
+    if (!post) return;
 
-  const commentBox = document.getElementById("giscus-comments");
-  if (commentBox) commentBox.innerHTML = "";
+    const commentBox = document.getElementById("giscus-comments");
+    if (commentBox) commentBox.innerHTML = "";
 
-  const script = document.createElement("script");
-  script.src = "https://giscus.app/client.js";
-  script.async = true;
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
 
-  script.setAttribute("data-repo", "abena07/bennett-eghan");
-  script.setAttribute("data-repo-id", "R_kgDON4R-JA");
+    script.setAttribute("data-repo", "abena07/bennett-eghan");
+    script.setAttribute("data-repo-id", "R_kgDON4R-JA");
 
-  script.setAttribute("data-category", "comments"); 
-  script.setAttribute("data-category-id", "DIC_kwDON4R-JM4Czgvp");
+    script.setAttribute("data-category", "comments");
+    script.setAttribute("data-category-id", "DIC_kwDON4R-JM4Czgvp");
 
-  script.setAttribute("data-mapping", "pathname");
-  script.setAttribute("data-strict", "0");
-  script.setAttribute("data-reactions-enabled", "1");
-  script.setAttribute("data-emit-metadata", "0");
-  script.setAttribute("data-input-position", "bottom");
-  script.setAttribute("data-theme", "preferred_color_scheme");
-  script.setAttribute("data-lang", "en");
-  script.setAttribute("crossorigin", "anonymous");
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "bottom");
+    script.setAttribute("data-theme", "preferred_color_scheme");
+    script.setAttribute("data-lang", "en");
+    script.setAttribute("crossorigin", "anonymous");
 
-  commentBox?.appendChild(script);
-}, [slug, post]);
+    commentBox?.appendChild(script);
+  }, [slug, post]);
 
-  
-  if (!post) return <p>post not found 😢</p>;
+  if (!post)
+    return (
+      <div className="w-full">
+        <Link
+          to="/blog"
+          className="mb-4 inline-block text-[12px] font-medium text-[#0B0F1F]/75 no-underline"
+          aria-label="back to index"
+        >
+          ← index
+        </Link>
+        <p className="text-[14px] text-[#0B0F1F]">post not found 😢</p>
+      </div>
+    );
 
   const PostComponent = post.component;
   const { title, description, date, readingTime } = post.meta;
@@ -67,6 +78,14 @@ useEffect(() => {
         {/* Canonical link */}
         <link rel="canonical" href={`${baseUrl}/blog/${slug}`} />
       </Helmet>
+
+      <Link
+        to="/blog"
+        className="mb-4 inline-block text-[12px] font-medium text-[#0B0F1F]/75 no-underline"
+        aria-label="back to index"
+      >
+        ← index
+      </Link>
 
       <h2 className="text-[14px] font-extrabold text-[#0B0F1F]">{title}</h2>
       <p className="blog-meta text-[12px] text-[#888888] mt-1">
