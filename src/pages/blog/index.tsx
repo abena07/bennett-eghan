@@ -48,7 +48,7 @@ export default function Blog() {
         <meta property="og:title" content="phil's blog" />
         <meta
           property="og:description"
-          content="insights, from phil's experience as a swe."
+          content="insights, from phil's experience as an engineer."
         />
         <meta property="og:image" content="https://www.bennett-eghan.com/og-main.png?v=2" />
         <meta property="og:type" content="website" />

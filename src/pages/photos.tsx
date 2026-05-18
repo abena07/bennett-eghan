@@ -498,7 +498,7 @@ export default function Photos() {
       <Helmet>
         <title>phil | keepsakes</title>
         <meta name="description" content="keepsakes from publr" />
-        <meta property="og:title" content="keepsakes — phil" />
+        <meta property="og:title" content="keepsakes | phil" />
         <meta property="og:description" content="keepsakes from publr" />
         <meta
           property="og:image"

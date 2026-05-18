@@ -13,7 +13,7 @@ export function Navbar() {
         <Link
           to="/"
           className="inline-flex shrink-0 items-center py-[6px] pl-0 pr-2 font-extrabold text-[14px] leading-none text-[#0B0F1F]"
-          aria-label="home — Phillipa Bennett-Eghan"
+          aria-label="home | Phillipa Bennett-Eghan"
         >
           PBE.
         </Link>

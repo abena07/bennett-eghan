@@ -37,7 +37,7 @@ function Projects() {
       <Helmet>
         <title>phil | projects</title>
         <meta name="description" content="things i have built" />
-        <meta property="og:title" content="projects — phil" />
+        <meta property="og:title" content="projects | phil" />
         <meta
           property="og:description"
           content="things i have built"

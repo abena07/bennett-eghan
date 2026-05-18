@@ -5,12 +5,12 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>phil | swe</title>
+        <title>phil | engineer</title>
         <meta
           name="description"
-          content="breaking building & engineering things — engineer from Ghana interested in systems, algorithms, and good UX."
+          content="breaking building & engineering things, engineer from Ghana interested in systems, algorithms, and good UX."
         />
-        <meta property="og:title" content="phil — swe" />
+        <meta property="og:title" content="phil | engineer" />
         <meta
           property="og:description"
           content="breaking building & engineering things."
