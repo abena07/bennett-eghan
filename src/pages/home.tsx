@@ -57,12 +57,12 @@ function Home() {
             </a>{" "}
             and i co-run a mini lab @{" "}
             <a
-              href="https://github.com/tangentlabs"
+              href="https://github.com/COV-Lumon-Industries"
               target="_blank"
               rel="noopener noreferrer"
               className="font-bold hover-underline hover-underline-muted"
             >
-              tangent labs
+              untitled labs
             </a>
             .
           </p>
