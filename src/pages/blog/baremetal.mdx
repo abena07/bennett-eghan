@@ -1,0 +1,211 @@
+export const meta = {
+  title: "baremetal: building a tcp server from scratch",
+  date: "jul. 13, 2026",
+  description: "building a concurrent tcp server in go to understand what powers everyday backend apis, after reading operating systems: three easy pieces.",
+  tags: ["technical"]
+}
+
+i built [baremetal](https://github.com/abena07/baremetal) as a proof of concept. i spent the first half of this year reading the book *operating systems: three easy pieces*. in all of that reading i was really drawn into building an http server. as someone who interacts with computers, apis, and backend systems daily, understanding how operating systems work at their core made me curious about what really powers our everyday usage of backend apis.
+
+a lot of the overlapping topics in the book, especially concurrency, synchronization, and locking, made wanting to build an http server feel like the natural next step. so let's start from the ground up.
+
+## what is tcp?
+
+tcp stands for **transmission control protocol**.
+
+it's a transport protocol that provides reliable communication between two machines. it ensures data arrives in order and retransmits packets if they are lost during transmission.
+
+under the hood, http servers, smtp servers, postgresql, and redis all rely on tcp to provide reliable communication.
+
+at a high level, establishing a tcp connection involves the three-way handshake.
+
+the client sends a **syn** packet.
+
+the server responds with a **syn-ack** packet.
+
+the client then replies with an **ack**, establishing the connection.
+
+![tcp three-way handshake](/blog/baremetal-tcp-handshake.png)
+
+if you're interested in the details, i'd highly recommend reading through the [tcp rfcs](https://www.rfc-editor.org/rfc/rfc9293) to appreciate how it all comes together.
+
+## protocol spec
+
+i built a text-based protocol spec for baremetal, one that mimics an in-memory kv store.
+
+the main commands in that spec are `PING`, `SET`, `GET`, and `DEL`. below are the commands and the arguments they take with expected responses.
+
+| command | args       | success response |
+|---------|------------|-------------------|
+| PING    | none       | OK\|PONG          |
+| SET     | key, value | OK\|              |
+| GET     | key        | OK\|value         |
+| DEL     | key        | OK\|              |
+
+the protocol is intentionally simple because the objective wasn't to implement http, but rather to understand transport concerns, concurrency, and shared state management.
+
+along the way the protocol grew a fifth, bonus command, `LIST`, which returns every key currently in the store (`OK|key1|key2`), but the four above are the core of the spec.
+
+## request parser
+
+every time we spun up the server, the request parser was there doing one job.
+
+it took whatever requests came through and returned either a success response or an error message based on the structure of the request.
+
+the parser effectively handled validation and edge cases gracefully.
+
+```go
+func ParseRequest(input string) (Request, error) {
+	commands := []string{"SET", "GET", "PING", "DEL", "LIST"}
+	oneArgCommands := []string{"GET", "DEL"}
+	noArgsCommands := []string{"PING", "LIST"}
+
+	if strings.Count(input, "|") > 2 {
+		return Request{}, fmt.Errorf("invalid character in value")
+	}
+
+	rawLine := strings.Split(input, "|")
+
+	var line []string
+	for _, item := range rawLine {
+		cleaned := strings.TrimSpace(item)
+		if cleaned != "" {
+			line = append(line, cleaned)
+		}
+	}
+
+	if len(line) < 1 {
+		return Request{}, fmt.Errorf("empty message")
+	}
+
+	command := line[0]
+	args := line[1:]
+
+	if !slices.Contains(commands, command) {
+		return Request{}, fmt.Errorf("unknown command: %q", command)
+	}
+
+	if slices.Contains(noArgsCommands, command) {
+		if len(args) != 0 {
+			return Request{}, fmt.Errorf("%s requires 0 arguments", command)
+		}
+	} else if slices.Contains(oneArgCommands, command) {
+		if len(args) != 1 {
+			return Request{}, fmt.Errorf("%s requires exactly 1 argument", command)
+		}
+	} else {
+		if len(args) != 2 {
+			return Request{}, fmt.Errorf("%s requires exactly 2 arguments", command)
+		}
+	}
+
+	return Request{Command: command, Args: args}, nil
+}
+```
+
+in this snippet the server is handling a case where we send an empty request, an unknown command, or a command that requires a certain number of arguments but the requester used the wrong number.
+
+responses are written back the same way every time, through two small helpers:
+
+```go
+func WriteOK(w io.Writer, result string) {
+	okPrefix := "OK"
+	response := okPrefix + "|" + result + "\n"
+	w.Write([]byte(response))
+}
+
+func WriteErr(w io.Writer, message string) {
+	errPrefix := "ERR"
+	response := errPrefix + "|" + message + "\n"
+	w.Write([]byte(response))
+}
+```
+
+## concurrency
+
+in terms of scalability, multiple clients should be able to connect to the server simultaneously. picture three separate `nc` sessions talking to the server at once, we'll call them `connA`, `connB`, and `connC`. in the absence of goroutines, our server would've been sequential. imagine having to wait for `connA` to return before `connB` gains access? that's safe, but it would be painfully slow at scale. so i leveraged one of go's most useful features: goroutines.
+
+```go
+func main() {
+	listener, err := net.Listen("tcp", ":8080")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("listening on :8080")
+
+	store := NewSafeMap()
+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Println(err)
+			break
+		}
+		go handleConn(conn, store)
+	}
+}
+```
+
+when we spin up a goroutine for `connA`, then another for `connB`, and then another for `connC`, all of these happen concurrently.
+
+what that means is that `connA` can access the in-memory store without inherently blocking `connB` or `connC`.
+
+`connB` and `connC` don't need to wait for `connA` to finish before they gain access to the server.
+
+but this introduces another complexity: how do we handle shared state?
+
+## shared state & mutexes
+
+all independent connections make requests against the same hashmap.
+
+in a case where `connA` wants to set a value, we need to acquire a lock to prevent a race condition.
+
+without synchronization, `connA` and `connB` could attempt to access the map concurrently, leading to inconsistent state or even runtime panics.
+
+again, to prevent this, i used go's `RWMutex`.
+
+```go
+type SafeMap struct {
+	mu sync.RWMutex
+	m  map[string]string
+}
+
+func NewSafeMap() *SafeMap {
+	return &SafeMap{
+		m: make(map[string]string),
+	}
+}
+
+func (sm *SafeMap) Set(key string, value string) {
+	sm.mu.Lock()
+	defer sm.mu.Unlock()
+	sm.m[key] = value
+}
+
+func (sm *SafeMap) Get(key string) (string, bool) {
+	sm.mu.RLock()
+	defer sm.mu.RUnlock()
+	val, ok := sm.m[key]
+	return val, ok
+}
+
+func (sm *SafeMap) Delete(key string) {
+	sm.mu.Lock()
+	defer sm.mu.Unlock()
+	delete(sm.m, key)
+}
+```
+
+that gave me two different modes of access: a read lock for operations like `Get` and `List`, and a write lock for operations like `Set` and `Delete`.
+
+so multiple readers can safely access the map at the same time, while writes still remain exclusive.
+
+while reading we also need to acquire a lock and only unlock when all reads are done. not locking while reading can cause a write to update a value that is being read, hence corrupting the data.
+
+## closing thoughts
+
+baremetal doesn't do much on the surface, ping, set, get, del, against a map guarded by a mutex, but that was never really the point.
+
+the point was to sit inside the layer that http servers, databases, and every other networked service is quietly built on top of, and see it work with my own hands.
+
+the full source is on [github](https://github.com/abena07/baremetal) if you want to poke around.
