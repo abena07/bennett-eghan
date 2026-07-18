@@ -39,10 +39,9 @@ function Home() {
             .
           </p>
           <p>
-            i enjoy thinking about the abstractions, infrastructure, and engineering decisions behind
-            great software, and how they come together to create intuitive, reliable products. i'm
-            especially drawn to systems that feel simple on the surface but are thoughtfully engineered
-            underneath.
+            i enjoy thinking about the abstractions, infrastructure, and engineering decisions behind great software. 
+            i'm especially drawn to systems that feel simple on the surface but are thoughtfully engineered underneath.
+
           </p>
           <p>
             outside of work i play padel, swim & go on walks.
