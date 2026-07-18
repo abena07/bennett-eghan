@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 
 function Home() {
   return (
@@ -51,63 +52,62 @@ function Home() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5 text-[12px] text-[#0B0F1F] mt-6">
-          <Link to="/projects" className="hover-underline">
+        <div className="flex flex-col gap-1.5 text-[12px] text-[#0B0F1F] mt-6">
+          <Link to="/projects" className="inline-flex w-fit items-center gap-1 hover-underline">
             projects
+            <ArrowUpRight size={12} />
           </Link>
 
-          <span className="text-[#0B0F1F]/40">/</span>
-
-          <Link to="/blog" className="hover-underline">
+          <Link to="/blog" className="inline-flex w-fit items-center gap-1 hover-underline">
             writing
+            <ArrowUpRight size={12} />
           </Link>
 
-          <span className="text-[#0B0F1F]/40">/</span>
-
-          <Link to="/photos" className="hover-underline">
+          <Link to="/photos" className="inline-flex w-fit items-center gap-1 hover-underline">
             keepsakes
+            <ArrowUpRight size={12} />
           </Link>
         </div>
 
         <div className="border-t border-[#0B0F1F]/10 my-8" />
 
         <div className="flex flex-col gap-1.5">
-          <div className="text-[14px] font-medium text-[#0B0F1F]">Connect</div>
+          <div className="text-[14px] font-medium text-[#0B0F1F] [font-variant:small-caps]">get in touch</div>
 
           <div className="flex items-center gap-2.5 text-[12px] text-[#0B0F1F] flex-wrap">
             <a
               href="https://github.com/abena07"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover-underline"
+              className="underline-wipe"
             >
               github
             </a>
 
-            <span className="text-[#0B0F1F]/40">/</span>
+            <span className="text-[#0B0F1F]">/</span>
 
             <a
               href="https://www.linkedin.com/in/phillipa-bennett-eghan/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover-underline"
+              className="underline-wipe"
             >
               linkedin
             </a>
 
-            <span className="text-[#0B0F1F]/40">/</span>
+            <span className="text-[#0B0F1F]">/</span>
 
-            <a href="mailto:abenabennett@proton.me" className="hover-underline">
+            <a href="mailto:abenabennett@proton.me" className="underline-wipe">
               email
             </a>
 
-            <span className="text-[#0B0F1F]/40">/</span>
+            <span className="text-[#0B0F1F]">/</span>
 
             <a
               href="https://bsky.app/profile/1bp7l.bsky.social"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover-underline"
+              className="underline-wipe"
             >
               bluesky
             </a>

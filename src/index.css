@@ -234,6 +234,26 @@ a.hover-underline-muted:focus-visible::before {
   opacity: 0;
 }
 
+/* Resting underline that wipes away right-to-left on hover/focus */
+.underline-wipe {
+  position: relative;
+}
+.underline-wipe::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background-color: currentColor;
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.underline-wipe:hover::after,
+.underline-wipe:focus-visible::after {
+  transform: scaleX(0);
+}
+
 .pika-icon path {
   stroke: #0B0F1F;
 }

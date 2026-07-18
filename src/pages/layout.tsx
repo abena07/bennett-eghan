@@ -9,7 +9,7 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col items-center px-6 w-full">
       {/* Fixed top offset — same anchor point on every page, independent of content length */}
-      <div className="w-full max-w-2xl flex flex-col pt-24">
+      <div className="w-full max-w-2xl flex flex-col pt-40">
         {!isHome && (
           <Link
             to={backTo}
