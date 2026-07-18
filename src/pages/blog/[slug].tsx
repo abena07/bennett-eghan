@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import posts from "./_index";
 import { useEffect } from "react";
@@ -38,13 +38,6 @@ export default function BlogPost() {
   if (!post)
     return (
       <div className="w-full">
-        <Link
-          to="/blog"
-          className="mb-4 inline-block text-[12px] font-medium text-[#0B0F1F]/75 no-underline"
-          aria-label="back to index"
-        >
-          ← index
-        </Link>
         <p className="text-[14px] text-[#0B0F1F]">post not found 😢</p>
       </div>
     );
@@ -78,14 +71,6 @@ export default function BlogPost() {
         {/* Canonical link */}
         <link rel="canonical" href={`${baseUrl}/blog/${slug}`} />
       </Helmet>
-
-      <Link
-        to="/blog"
-        className="mb-4 inline-block text-[12px] font-medium text-[#0B0F1F]/75 no-underline"
-        aria-label="back to index"
-      >
-        ← index
-      </Link>
 
       <h2 className="text-[14px] font-extrabold text-[#0B0F1F]">{title}</h2>
       <p className="blog-meta text-[12px] text-[#888888] mt-1">

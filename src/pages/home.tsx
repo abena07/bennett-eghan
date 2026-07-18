@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -26,7 +27,7 @@ function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi, i'm Phil 👋🏿</p>
+        <p className="text-[16px] font-extrabold text-[#0B0F1F]">Hi i'm Phil.</p>
 
         <div className="text-[14px] font-normal mt-4 leading-[1.55] text-[#0B0F1F]/92 space-y-[calc(0.75rem+1px)] [&_a]:text-[#0B0F1F] [&_span]:text-[#0B0F1F]">
           <p>
@@ -46,50 +47,32 @@ function Home() {
             underneath.
           </p>
           <p>
-            i'm also a fellow @{" "}
-            <a
-              href="https://hxilabs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold hover-underline hover-underline-muted"
-            >
-              hxi labs
-            </a>{" "}
-            and i co-run a mini lab @{" "}
-            <a
-              href="https://github.com/COV-Lumon-Industries"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold hover-underline hover-underline-muted"
-            >
-              untitled labs
-            </a>
-            .
-          </p>
-          <p>
-            i love almost anything{" "}
-            <span className="inline font-bold">
-              sports related
-            </span>
-            , soccer,
-            cycling, swimming, table tennis, you name it.
-          </p>
-          <p>
-            in my downtime i'm either going through my{" "}
-            <a
-              href="https://letterboxd.com/abena07/watchlist/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold hover-underline hover-underline-muted"
-            >
-              watch list
-            </a>
-            , hacking on projects or sleeping.
+            outside of work i play padel, swim & go on walks.
           </p>
         </div>
 
-        <div className="flex flex-col gap-1.5 mt-10">
-          <div className="text-[14px] font-medium text-[#0B0F1F]">stalk me</div>
+        <div className="flex items-center gap-2.5 text-[12px] text-[#0B0F1F] mt-6">
+          <Link to="/projects" className="hover-underline">
+            projects
+          </Link>
+
+          <span className="text-[#0B0F1F]/40">/</span>
+
+          <Link to="/blog" className="hover-underline">
+            writing
+          </Link>
+
+          <span className="text-[#0B0F1F]/40">/</span>
+
+          <Link to="/photos" className="hover-underline">
+            keepsakes
+          </Link>
+        </div>
+
+        <div className="border-t border-[#0B0F1F]/10 my-8" />
+
+        <div className="flex flex-col gap-1.5">
+          <div className="text-[14px] font-medium text-[#0B0F1F]">Connect</div>
 
           <div className="flex items-center gap-2.5 text-[12px] text-[#0B0F1F] flex-wrap">
             <a
