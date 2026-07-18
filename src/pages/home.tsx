@@ -28,23 +28,20 @@ function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <p className="text-[16px] font-extrabold text-[#0B0F1F]">Hi i'm Phil.</p>
+        <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi i'm Phil.</p>
 
         <div className="text-[14px] font-normal mt-4 leading-[1.55] text-[#0B0F1F]/92 space-y-[calc(0.75rem+1px)] [&_a]:text-[#0B0F1F] [&_span]:text-[#0B0F1F]">
           <p>
-            i'm an engineer from Ghana who's interested in{" "}
+            i'm an engineer who's interested in{" "}
             <span className="inline font-bold">
-              systems, algorithms and good ux
+              systems and algorithms
             </span>
             .
           </p>
           <p>
-            i spend a lot of time thinking about what happens behind the scenes, the abstractions,
-            infrastructure and engineering decisions that power good software, and how all of that ties
-            back into making products usable and great.
-          </p>
-          <p>
-            i'm especially drawn to systems that feel simple on the surface but are incredibly thoughtful
+            i enjoy thinking about the abstractions, infrastructure, and engineering decisions behind
+            great software, and how they come together to create intuitive, reliable products. i'm
+            especially drawn to systems that feel simple on the surface but are thoughtfully engineered
             underneath.
           </p>
           <p>
