@@ -62,7 +62,7 @@ function Projects() {
           ease: [0.25, 0.1, 0.25, 1],
         }}
       >
-        <p className="text-[16px] font-extrabold text-[#0B0F1F]">featured projects</p>
+        <p className="text-[16px] font-extrabold text-[#0B0F1F]">projects</p>
 
         {/* Projects Grid - card layout */}
         <div className="mt-4 space-y-3">

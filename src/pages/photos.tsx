@@ -521,14 +521,7 @@ export default function Photos() {
         </p>
         <div className="mb-6 space-y-2">
           <p className="text-[12px] leading-snug text-[#0B0F1F]/75">
-            photos of people, moments & things. powered by{" "}
-            <a
-              href="https://publr.bennett-eghan.com/"
-              className="font-medium hover-underline hover-underline-muted"
-            >
-              publr
-            </a>
-            .
+            photos i take of people & things.
           </p>
           {photos !== null && photos.length > 0 ? (
             <p className="text-[11px] leading-snug text-[#0B0F1F]/55 tabular-nums">

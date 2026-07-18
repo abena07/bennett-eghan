@@ -55,7 +55,7 @@ export default function Blog() {
         <meta property="og:url" content="https://www.bennett-eghan.com/blog" />
       </Helmet>
 
-      <p className="text-[16px] font-extrabold text-[#0B0F1F] mb-4">blog</p>
+      <p className="text-[16px] font-extrabold text-[#0B0F1F] mb-4">writing</p>
 
       {/* Tag filter */}
       {allTags.length > 0 && (
