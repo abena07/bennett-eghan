@@ -5,59 +5,52 @@
   "type": "module",
   "packageManager": "bun@1.1.38",
   "scripts": {
-    "dev": "bunx vite",
-    "build": "node scripts/reading-times.mjs && bunx tsc -b && bunx vite build",
-    "lint": "node ./node_modules/eslint/bin/eslint.js .",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "node ./node_modules/eslint/bin/eslint.js ."
   },
   "dependencies": {
-    "@fontsource/source-sans-3": "^5.2.5",
-    "@mdx-js/esbuild": "^3.1.0",
+    "@giscus/react": "^3.1.0",
+    "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@mdx-js/rollup": "^3.1.0",
+    "@next/mdx": "^15.5.4",
     "@radix-ui/react-slot": "^1.1.2",
-    "@tailwindcss/vite": "^4.0.14",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "swiper": "^11.2.10",
-    "iconsax-react": "^0.0.8",
     "lucide-react": "^0.482.0",
     "masonry-layout": "^4.2.2",
     "motion": "^12.23.24",
+    "next": "^15.5.4",
     "pikaicons": "^0.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^6.23.1",
     "rehype-prism-plus": "^2.0.2",
-    "rehype-slug": "^6.0.0",
-    "remark-emoji": "^5.0.1",
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss-animate": "^1.0.7",
-    "vite-plugin-html": "^3.2.2",
-    "vite-plugin-pages": "^0.33.1",
-    "vite-plugin-sitemap": "^0.8.2",
-    "vite-ssg": "^28.2.2"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.21.0",
+    "@tailwindcss/postcss": "^4.0.14",
     "@tailwindcss/typography": "^0.5.16",
     "@types/masonry-layout": "^4.2.8",
     "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.21.0",
+    "eslint-config-next": "^15.5.4",
     "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.14",
     "typescript": "~5.7.2",
-    "typescript-eslint": "^8.24.1",
-    "vite": "^6.2.0",
-    "vite-plugin-open-graph": "^2.0.6"
-  }
+    "typescript-eslint": "^8.24.1"
+  },
+  "trustedDependencies": [
+    "unrs-resolver"
+  ]
 }

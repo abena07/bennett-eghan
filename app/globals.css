@@ -1,0 +1,434 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #0B0F1F;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --radius: 0;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Text selection — aligns with nav chip `#E1E4EA` + ink `#0B0F1F` */
+  --selection-background: #e1e4ea;
+  --selection-color: #0b0f1f;
+  --selection-code-background: rgb(225 228 234 / 35%);
+  --selection-code-color: #f0f3f6;
+}
+
+/* a {
+  font-weight: 500;
+  color: #000000;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #00000000;
+} */
+
+
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@theme {
+  --font-sans: "DM Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    font-size: 14px;
+  }
+
+  html,
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Text drag-selection — site palette (same family as nav highlights) */
+  ::selection {
+    background-color: var(--selection-background);
+    color: var(--selection-color);
+  }
+
+  ::-moz-selection {
+    background-color: var(--selection-background);
+    color: var(--selection-color);
+  }
+
+  /* Dark Prism blocks: translucent gray chip so contrast stays readable */
+  .prose pre ::selection,
+  .prose pre ::-moz-selection {
+    background-color: var(--selection-code-background);
+    color: var(--selection-code-color);
+  }
+}
+
+#nav a,
+#nav a:visited,
+#nav a:hover,
+#nav a:active {
+  color: inherit !important;
+}
+
+/* Expanding underline on hover — `currentColor` matches link/body text */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+.hover-underline:hover::after,
+.hover-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Bold emphasis: faint resting underline + animated stroke on hover/focus */
+.hover-underline-muted::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.22;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.hover-underline-muted:hover::before,
+a.hover-underline-muted:focus-visible::before {
+  opacity: 0;
+}
+
+/* Resting underline that wipes away right-to-left on hover/focus */
+.underline-wipe {
+  position: relative;
+}
+.underline-wipe::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background-color: currentColor;
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.underline-wipe:hover::after,
+.underline-wipe:focus-visible::after {
+  transform: scaleX(0);
+}
+
+.pika-icon path {
+  stroke: #0B0F1F;
+}
+
+/* Blog code blocks: DM Mono + GitHub Dark Colorblind (syntax highlighting) */
+.prose pre {
+  font-family: "DM Mono", ui-monospace, monospace !important;
+  background-color: #0d1117 !important;
+  border: none;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #c9d1d9;
+}
+
+.prose pre code {
+  font-family: "DM Mono", ui-monospace, monospace !important;
+  background: none !important;
+  padding: 0 !important;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* Prism token colors — GitHub Dark Colorblind style */
+.prose pre .token.comment,
+.prose pre .token.prolog,
+.prose pre .token.doctype,
+.prose pre .token.cdata {
+  color: #8b949e;
+}
+
+.prose pre .token.punctuation {
+  color: #8b949e;
+}
+
+.prose pre .token.keyword,
+.prose pre .token.operator {
+  color: #d2a8ff;
+}
+
+.prose pre .token.keyword.control-flow {
+  color: #ff7b72;
+}
+
+/* class names & function calls (e.g. BlockingConnection, ConnectionParameters) → orange */
+.prose pre .token.function,
+.prose pre .token.class-name {
+  color: #ffa657;
+}
+
+.prose pre .token.string,
+.prose pre .token.attr-value {
+  color: #a5d6ff;
+}
+
+.prose pre .token.number,
+.prose pre .token.boolean {
+  color: #79c0ff;
+}
+
+/* parameter / variable (e.g. host in self.host = host) → yellow */
+.prose pre .token.parameter,
+.prose pre .token.variable,
+.prose pre .token.attr-name {
+  color: #e6db74;
+}
+
+/* property (e.g. .host in self.host) → grey */
+.prose pre .token.property {
+  color: #8b949e;
+}
+
+.prose pre .token.tag {
+  color: #7ee787;
+}
+
+.prose :not(pre) > code {
+  font-family: "DM Mono", ui-monospace, monospace !important;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.875em;
+  color: #8250df;
+}
+
+/* Tailwind Typography adds backticks via ::before/::after on inline code — remove them */
+.prose code::before,
+.prose code::after {
+  content: none !important;
+}
+
+/* Blog: 14px content, 12px meta */
+.blog-post.prose {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.blog-post.prose h1,
+.blog-post.prose h2,
+.blog-post.prose h3,
+.blog-post.prose h4 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.blog-meta {
+  font-size: 12px;
+  color: #888888;
+}
+
+/* Photos: masonry + Codrops GridLoadingEffects -- demo 2 ("move up" on scroll).
+   Patterns adapted from https://github.com/codrops/GridLoadingEffects (MIT) */
+.publr-masonry {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 100%;
+}
+
+.publr-sizer,
+.publr-photo-tile {
+  box-sizing: border-box;
+}
+
+/*
+ * Masonry reads `.publr-sizer` for column width but lays out `.publr-photo-tile`.
+ * Tiles must use the same width as one column; otherwise they stay ~100% wide,
+ * span every column, and read as a single-column stack (few visible “rows”).
+ */
+.publr-sizer,
+.publr-photo-tile {
+  width: calc((100% - 12px) / 2);
+}
+
+@media screen and (max-width: 480px) {
+  .publr-sizer,
+  .publr-photo-tile {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .publr-sizer,
+  .publr-photo-tile {
+    width: 100%;
+  }
+}
+
+.publr-masonry.effect-2 .publr-photo-tile {
+  opacity: 0;
+}
+
+.publr-masonry.effect-2 .publr-photo-tile.publr-photo-shown {
+  opacity: 1;
+}
+
+.publr-masonry.effect-2 .publr-photo-tile.publr-photo-animate {
+  transform: translateY(200px);
+  animation: publr-photo-move-up 0.65s ease forwards;
+}
+
+@keyframes publr-photo-move-up {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .publr-masonry.effect-2 .publr-photo-tile {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .publr-masonry.effect-2 .publr-photo-tile.publr-photo-animate {
+    animation: none;
+  }
+}
