@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { IndexLink } from "@/components/index-link";
 import { GiscusComments } from "@/components/giscus-comments";
+import { SharePost } from "@/components/share-post";
 import { getPost, getPostSlugs } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -64,15 +65,21 @@ export default async function BlogPost({
       <IndexLink href="/blog" />
       <article className="prose prose-p:text-[14px] prose-li:text-[14px] prose-sm max-w-3xl pb-24 blog-post prose-p:leading-normal prose-p:my-[calc(0.75rem+1px)] prose-headings:mt-7 prose-headings:mb-2 prose-ul:my-3 prose-ol:my-3 prose-li:my-1 prose-pre:my-3 prose-blockquote:my-3">
         <h2 className="text-[14px] font-extrabold text-[#0B0F1F]">{title}</h2>
-        <p className="blog-meta text-[12px] text-[#888888] mt-1">
-          {date}
-          {readingTime != null && (
-            <>
-              <span className="mx-2 text-[#888888]">·</span>
-              <span>{readingTime} min read</span>
-            </>
-          )}
-        </p>
+        <div className="flex items-center justify-between gap-4 mt-1">
+          <p className="blog-meta text-[12px] text-[#888888]">
+            {date}
+            {readingTime != null && (
+              <>
+                <span className="mx-2 text-[#888888]">·</span>
+                <span>{readingTime} min read</span>
+              </>
+            )}
+          </p>
+          <SharePost
+            url={`https://www.bennett-eghan.com/blog/${slug}`}
+            title={title}
+          />
+        </div>
         <PostComponent />
 
         <GiscusComments />
