@@ -19,7 +19,10 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "space-between",
           backgroundColor: "#ffffff",
-          padding: "80px",
+          paddingTop: "80px",
+          paddingRight: "80px",
+          paddingBottom: "140px",
+          paddingLeft: "80px",
           fontFamily: "DM Mono",
         }}
       >

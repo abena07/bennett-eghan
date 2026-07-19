@@ -19,7 +19,10 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "space-between",
           backgroundColor: "#ffffff",
-          padding: "80px",
+          paddingTop: "80px",
+          paddingRight: "80px",
+          paddingBottom: "140px",
+          paddingLeft: "80px",
           fontFamily: "DM Mono",
         }}
       >
@@ -36,7 +39,7 @@ export default async function Image() {
               padding: "8px 16px",
             }}
           >
-            ENGINEER
+            breaking building & engineering things.
           </div>
         </div>
 
@@ -51,7 +54,7 @@ export default async function Image() {
             maxWidth: 900,
           }}
         >
-          breaking building & engineering things.
+          PHILLIPA BENNETT-EGHAN
         </div>
 
         <div
@@ -72,7 +75,7 @@ export default async function Image() {
               color: "#8250df",
             }}
           >
-            PHILLIPA BENNETT-EGHAN
+            ENGINEER
           </div>
         </div>
       </div>
