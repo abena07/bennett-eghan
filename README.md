@@ -3,7 +3,7 @@
 my personal website.
 
 **website:** https://www.bennett-eghan.com  
-**framework:** react (vite)  
+**framework:** next.js (app router)  
 **deployment:** vercel  
 **content:** mdx posts  
 **styling:** tailwind css  
@@ -13,8 +13,8 @@ my personal website.
 ```bash
 $ git clone https://github.com/abena07/bennett-eghan.git
 $ cd bennett-eghan
-$ yarn install
-$ yarn dev
+$ bun install
+$ bun run dev
 ```
 
 ### cloning / forking
