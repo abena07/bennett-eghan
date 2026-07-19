@@ -36,7 +36,7 @@ export default async function Image() {
               padding: "8px 16px",
             }}
           >
-            PHILLIPA BENNETT-EGHAN
+            ENGINEER
           </div>
         </div>
 
