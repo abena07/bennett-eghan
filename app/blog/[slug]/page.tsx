@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { IndexLink } from "@/components/index-link";
 import { GiscusComments } from "@/components/giscus-comments";
 import { SharePost } from "@/components/share-post";
+import { ExpandableImage } from "@/components/expandable-image";
 import { getPost, getPostSlugs } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -57,7 +58,7 @@ export default async function BlogPost({
   const post = await loadPost(slug);
   if (!post) notFound();
 
-  const { title, date, readingTime } = post.meta;
+  const { title, date, readingTime, image } = post.meta;
   const PostComponent = post.Component;
 
   return (
@@ -80,6 +81,19 @@ export default async function BlogPost({
             title={title}
           />
         </div>
+        {image && (
+          <div className="not-prose my-4 w-full overflow-hidden rounded-xl">
+            <ExpandableImage
+              src={image}
+              alt={title}
+              style={{
+                width: "100%",
+                height: "320px",
+                objectFit: "cover",
+              }}
+            />
+          </div>
+        )}
         <PostComponent />
 
         <GiscusComments />

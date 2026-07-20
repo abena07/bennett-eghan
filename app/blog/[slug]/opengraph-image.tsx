@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { ImageResponse } from "next/og";
 import { loadOgFonts, ogSize, ogContentType } from "@/lib/og";
 import { getPostMetaSync, getPostSlugs } from "@/lib/posts";
@@ -22,13 +24,33 @@ export default async function Image({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const fonts = await loadOgFonts();
 
   let title = "phil's blog";
   let eyebrow = "WRITING";
 
   try {
     const meta = getPostMetaSync(slug);
+
+    if (meta.image) {
+      const filePath = path.join(process.cwd(), "public", meta.image);
+      const buf = fs.readFileSync(filePath);
+      const ext = path.extname(filePath).slice(1) || "png";
+      const imageDataUri = `data:image/${ext};base64,${buf.toString("base64")}`;
+
+      return new ImageResponse(
+        (
+          <img
+            src={imageDataUri}
+            alt=""
+            width={ogSize.width}
+            height={ogSize.height}
+            style={{ objectFit: "cover" }}
+          />
+        ),
+        { ...ogSize },
+      );
+    }
+
     title = meta.title;
     const parts: string[] = [];
     if (meta.date) parts.push(meta.date);
@@ -37,6 +59,8 @@ export default async function Image({
   } catch {
     // fall back to defaults above
   }
+
+  const fonts = await loadOgFonts();
 
   return new ImageResponse(
     (
