@@ -1,0 +1,32 @@
+name: uptime
+
+on:
+  schedule:
+    - cron: "*/15 * * * *" # every 15 minutes (GitHub may delay runs a few minutes)
+  workflow_dispatch: # lets you run it manually from the Actions tab
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        url:
+          - https://bennett-eghan.com
+          - https://www.bennett-eghan.com
+    steps:
+      - name: Check ${{ matrix.url }}
+        run: |
+          # Retry 3 times so one slow response doesn't trigger a false alarm.
+          for attempt in 1 2 3; do
+            code=$(curl -sS -L -o /dev/null -w "%{http_code}" --max-time 20 "${{ matrix.url }}" || echo "000")
+            echo "Attempt $attempt: HTTP $code"
+            if [ "$code" -ge 200 ] && [ "$code" -lt 400 ]; then
+              echo "✅ ${{ matrix.url }} is up"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::❌ ${{ matrix.url }} is DOWN (last status: $code)"
+          exit 1
