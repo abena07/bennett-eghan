@@ -90,7 +90,7 @@ export default function Home() {
 
           <span className="text-[#0B0F1F]">/</span>
 
-          <a href="mailto:abenabennett@proton.me" className="underline-wipe">
+          <a href="mailto:hi@bennett-eghan.com" className="underline-wipe">
             email
           </a>
 
