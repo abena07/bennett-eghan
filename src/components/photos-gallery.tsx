@@ -360,6 +360,15 @@ export function PhotosGallery({
     }
 
     let alive = true;
+    let layoutFrame = 0;
+    /** Coalesce layout requests into one per frame to avoid jitter. */
+    const scheduleLayout = (): void => {
+      if (layoutFrame) return;
+      layoutFrame = window.requestAnimationFrame(() => {
+        layoutFrame = 0;
+        if (alive) masonryRef.current?.layout?.();
+      });
+    };
 
     void (async () => {
       teardownMasonryEffects();
@@ -481,22 +490,22 @@ export function PhotosGallery({
           }
         });
 
-        const ro = new ResizeObserver(() => {
-          masonryRef.current?.layout?.();
-        });
+        // Re-layout whenever any tile changes size (e.g. its placeholder loads
+        // after the initial layout). Masonry pins the grid's own height, so
+        // observing only the grid misses these and tiles end up overlapping.
+        const ro = new ResizeObserver(scheduleLayout);
         ro.observe(grid);
+        tiles.forEach((tile) => ro.observe(tile));
         observersRef.current.ro = ro;
       });
     })();
 
-    const onResize = (): void => {
-      masonryRef.current?.layout?.();
-    };
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", scheduleLayout);
 
     return () => {
       alive = false;
-      window.removeEventListener("resize", onResize);
+      window.cancelAnimationFrame(layoutFrame);
+      window.removeEventListener("resize", scheduleLayout);
       teardownMasonryEffects();
     };
   }, [photos, teardownMasonryEffects]);
