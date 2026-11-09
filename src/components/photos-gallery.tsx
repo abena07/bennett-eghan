@@ -9,7 +9,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import "swiper/css";
-import { publrPhotosUrl, toPlaceholderUrl } from "@/lib/publr";
+import {
+  publrPhotosUrl,
+  toLargeUrl,
+  toPlaceholderUrl,
+  toThumbUrl,
+} from "@/lib/publr";
 
 /** Codrops AnimOnScroll: random duration bounds used on scroll (GridLoadingEffects demo 2 path). */
 const DEMO2_MIN_DURATION = 0.4;
@@ -53,6 +58,14 @@ function PhotoLightbox({ urls, initialIndex, onClose }: PhotoLightboxProps) {
     Math.min(initialIndex, Math.max(0, urls.length - 1)),
   );
   const multiple = urls.length > 1;
+  const [activeIndex, setActiveIndex] = useState(startIndex);
+
+  /** Only decode the current slide and its neighbours — loading every photo at once crashes iOS Safari. */
+  const isNear = (i: number): boolean => {
+    const n = urls.length;
+    const d = Math.abs(i - activeIndex);
+    return Math.min(d, n - d) <= 1;
+  };
 
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
@@ -154,6 +167,7 @@ function PhotoLightbox({ urls, initialIndex, onClose }: PhotoLightboxProps) {
             onSwiper={(instance) => {
               swiperRef.current = instance;
             }}
+            onSlideChange={(instance) => setActiveIndex(instance.realIndex)}
           >
             {urls.map((url, i) => (
               <SwiperSlide
@@ -161,12 +175,17 @@ function PhotoLightbox({ urls, initialIndex, onClose }: PhotoLightboxProps) {
                 className="!flex !h-auto items-center justify-center bg-transparent"
               >
                 <div className="flex items-center justify-center px-1 sm:px-2">
+                  {isNear(i) ? (
                   <img
-                    src={url}
+                    src={toLargeUrl(url)}
                     alt=""
+                    decoding="async"
                     className="max-h-[min(85vh,880px)] max-w-full w-auto rounded-xl border-0 bg-transparent shadow-[0_25px_60px_-15px_rgba(0,0,0,0.55)]"
                     draggable={false}
                   />
+                  ) : (
+                    <div className="h-[min(60vh,600px)] w-full" aria-hidden />
+                  )}
                 </div>
               </SwiperSlide>
             ))}
@@ -209,6 +228,11 @@ function PhotoTile({
             wrap.style.minHeight = "";
             wrap.style.backgroundColor = "";
             wrap.classList.remove("animate-pulse");
+            const full = img.nextElementSibling as HTMLImageElement | null;
+            if (full?.complete && full.naturalWidth > 0) {
+              img.style.visibility = "hidden";
+              return;
+            }
             img.style.opacity = "1";
             img.style.filter = "blur(12px)";
             img.style.transform = "scale(1.08)";
@@ -221,13 +245,23 @@ function PhotoTile({
           }}
         />
         <img
-          src={url}
+          src={toThumbUrl(url)}
           alt=""
           loading="lazy"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700"
           onLoad={(e) => {
-            e.currentTarget.style.opacity = "1";
+            const img = e.currentTarget;
+            img.style.opacity = "1";
+            // Drop the blur filter once the real image has faded in: a filtered
+            // layer per tile adds up to a lot of GPU memory on iOS.
+            const placeholder = img.previousElementSibling as HTMLElement | null;
+            window.setTimeout(() => {
+              if (!placeholder) return;
+              placeholder.style.filter = "";
+              placeholder.style.transform = "";
+              placeholder.style.visibility = "hidden";
+            }, 750);
           }}
         />
       </div>
@@ -326,6 +360,15 @@ export function PhotosGallery({
     }
 
     let alive = true;
+    let layoutFrame = 0;
+    /** Coalesce layout requests into one per frame to avoid jitter. */
+    const scheduleLayout = (): void => {
+      if (layoutFrame) return;
+      layoutFrame = window.requestAnimationFrame(() => {
+        layoutFrame = 0;
+        if (alive) masonryRef.current?.layout?.();
+      });
+    };
 
     void (async () => {
       teardownMasonryEffects();
@@ -447,22 +490,22 @@ export function PhotosGallery({
           }
         });
 
-        const ro = new ResizeObserver(() => {
-          masonryRef.current?.layout?.();
-        });
+        // Re-layout whenever any tile changes size (e.g. its placeholder loads
+        // after the initial layout). Masonry pins the grid's own height, so
+        // observing only the grid misses these and tiles end up overlapping.
+        const ro = new ResizeObserver(scheduleLayout);
         ro.observe(grid);
+        tiles.forEach((tile) => ro.observe(tile));
         observersRef.current.ro = ro;
       });
     })();
 
-    const onResize = (): void => {
-      masonryRef.current?.layout?.();
-    };
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", scheduleLayout);
 
     return () => {
       alive = false;
-      window.removeEventListener("resize", onResize);
+      window.cancelAnimationFrame(layoutFrame);
+      window.removeEventListener("resize", scheduleLayout);
       teardownMasonryEffects();
     };
   }, [photos, teardownMasonryEffects]);
