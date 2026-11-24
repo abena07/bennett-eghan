@@ -25,6 +25,8 @@ export default function Home() {
           alt="phil"
           width={64}
           height={64}
+          quality={95}
+          priority
           className="h-16 w-16 rounded-full object-cover"
         />
         <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi i&apos;m Phil.</p>
