@@ -15,20 +15,29 @@ export const metadata: Metadata = {
 
 const projects = [
   {
-    title: "baremetal",
+    title: "stash",
     description:
-      "a concurrent TCP server with a custom wire protocol, built from scratch in Go.",
-    tech: ["go"],
-    github: "https://github.com/abena07/baremetal",
+      "a discord bot that saves the links you drop, reminds you to read them every week, keeps your notes in threads & syncs everything to obsidian.",
+    tech: ["python", "discord.py", "postgresql", "typescript"],
+    github: "https://github.com/abena07/stash",
+    demo: "https://stash.bennett-eghan.com/",
     type: "personal",
   },
   {
     title: "publr",
     description:
-      "a mini server that helps you post photos to your website & any social media of your choice (supports Instagram currently).",
-    tech: ["python", "fastapi", "typeScript", "postgresql"],
+      "drop a photo in a google drive folder & it gets published to your website, and to instagram if you want.",
+    tech: ["python", "fastapi", "typescript", "postgresql"],
     github: "https://github.com/abena07/publr",
     demo: "https://publr.bennett-eghan.com/",
+    type: "personal",
+  },
+  {
+    title: "baremetal",
+    description:
+      "a concurrent TCP server with a custom wire protocol, built from scratch in Go.",
+    tech: ["go"],
+    github: "https://github.com/abena07/baremetal",
     type: "personal",
   },
   {
