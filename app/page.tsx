@@ -19,13 +19,13 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <FadeIn className="w-full">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <Image
           src="/me.jpg"
           alt="phil"
-          width={44}
-          height={44}
-          className="h-11 w-11 rounded-full object-cover"
+          width={64}
+          height={64}
+          className="h-16 w-16 rounded-full object-cover"
         />
         <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi i&apos;m Phil.</p>
       </div>
