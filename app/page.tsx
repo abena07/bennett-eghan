@@ -116,18 +116,19 @@ export default function Home() {
           >
             bluesky
           </a>
+        </div>
 
-          <span className="text-[#0B0F1F]">/</span>
-
+        <p className="text-[12px] text-[#888888] mt-3">
+          subscribe to my{" "}
           <a
             href="https://buttondown.com/bennett-eghan"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline-wipe"
+            className="text-[#0B0F1F] underline-wipe"
           >
             newsletter
           </a>
-        </div>
+        </p>
       </div>
     </FadeIn>
   );

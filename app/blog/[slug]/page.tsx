@@ -4,6 +4,7 @@ import { IndexLink } from "@/components/index-link";
 import { GiscusComments } from "@/components/giscus-comments";
 import { SharePost } from "@/components/share-post";
 import { ExpandableImage } from "@/components/expandable-image";
+import { SubscribeForm } from "@/components/subscribe-form";
 import { getPost, getPostSlugs } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -96,17 +97,7 @@ export default async function BlogPost({
         )}
         <PostComponent />
 
-        <p className="not-prose mt-10 text-[12px] text-[#888888]">
-          get new posts in your inbox:{" "}
-          <a
-            href="https://buttondown.com/bennett-eghan"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#0B0F1F] underline-wipe"
-          >
-            subscribe by email
-          </a>
-        </p>
+        <SubscribeForm className="mt-12 mb-10" />
 
         <GiscusComments />
       </article>

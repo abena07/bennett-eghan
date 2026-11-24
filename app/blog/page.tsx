@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IndexLink } from "@/components/index-link";
 import { FadeIn } from "@/components/fade-in";
 import { TagFilterList } from "@/components/tag-filter";
+import { SubscribeForm } from "@/components/subscribe-form";
 import { getPostSlugs, getPostMetaSync } from "@/lib/posts";
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function Blog() {
           writing
         </p>
         <TagFilterList posts={sortedPosts} />
+        <SubscribeForm className="mt-14" />
       </FadeIn>
     </>
   );
