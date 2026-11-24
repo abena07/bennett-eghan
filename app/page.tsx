@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { FadeIn } from "@/components/fade-in";
@@ -18,7 +19,16 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <FadeIn className="w-full">
-      <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi i&apos;m Phil.</p>
+      <div className="flex items-center gap-3">
+        <Image
+          src="/me.jpg"
+          alt="phil"
+          width={44}
+          height={44}
+          className="h-11 w-11 rounded-full object-cover"
+        />
+        <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi i&apos;m Phil.</p>
+      </div>
 
       <div className="text-[14px] font-normal mt-4 leading-[1.55] text-[#0B0F1F]/92 space-y-[calc(0.75rem+1px)] [&_a]:text-[#0B0F1F] [&_span]:text-[#0B0F1F]">
         <p>
@@ -103,6 +113,17 @@ export default function Home() {
             className="underline-wipe"
           >
             bluesky
+          </a>
+
+          <span className="text-[#0B0F1F]">/</span>
+
+          <a
+            href="https://buttondown.com/bennett-eghan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-wipe"
+          >
+            newsletter
           </a>
         </div>
       </div>
