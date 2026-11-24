@@ -1,0 +1,51 @@
+name: Newsletter draft
+
+# When a new blog post lands on main, create a Buttondown draft for it.
+# Drafts only: review and send them from buttondown.com.
+
+on:
+  push:
+    branches: [main]
+    paths: ["src/content/blog/*.mdx"]
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "post slug to draft (e.g. advent-of-code-2025)"
+        required: true
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Find new posts
+        id: posts
+        env:
+          BEFORE: ${{ github.event.before }}
+          SLUG: ${{ inputs.slug }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            files="src/content/blog/${SLUG}.mdx"
+            [ -f "$files" ] || { echo "no post at $files"; exit 1; }
+          elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            files=""
+          else
+            files=$(git diff --name-only --diff-filter=A "$BEFORE" "$GITHUB_SHA" -- 'src/content/blog/*.mdx' | tr '\n' ' ')
+          fi
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          echo "new posts: ${files:-none}"
+
+      - name: Create Buttondown drafts
+        if: steps.posts.outputs.files != ''
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: node scripts/buttondown-draft.mjs ${{ steps.posts.outputs.files }}
