@@ -23,9 +23,9 @@ export default function Home() {
         <Image
           src="/me.jpg"
           alt="phil"
-          width={56}
-          height={56}
-          className="h-14 w-14 rounded-full object-cover"
+          width={64}
+          height={64}
+          className="h-16 w-16 rounded-full object-cover"
         />
         <p className="text-[16px] font-extrabold text-[#0B0F1F]">hi i&apos;m Phil.</p>
       </div>
