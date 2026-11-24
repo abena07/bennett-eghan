@@ -7,7 +7,7 @@ export function SubscribeForm({ className = "" }: { className?: string }) {
         newsletter
       </p>
       <p className="mt-1 text-[12px] text-[#888888]">
-        get new posts in your inbox. no spam, just writing.
+        subscribe if you want to keep tabs on me :)
       </p>
       <form
         action={`https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USER}`}
